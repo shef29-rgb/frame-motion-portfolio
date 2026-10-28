@@ -156,11 +156,54 @@
       will-change: transform;
     }
     .btn:hover { box-shadow: 8px 8px 0 var(--pink); }
+    /* Premium glass effect for the secondary CTA — without a large pale panel */
     .btn.secondary {
-      color: var(--text); background: #ffffff08;
-      border: 1px solid #ffffff30; box-shadow: none;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      color: var(--text);
+      background: linear-gradient(135deg, rgba(35,27,54,.82), rgba(14,13,27,.90));
+      border: 1px solid rgba(103,244,229,.32);
+      -webkit-backdrop-filter: blur(18px) saturate(145%);
+      backdrop-filter: blur(18px) saturate(145%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.13),
+        inset 0 -1px 0 rgba(103,244,229,.06),
+        0 8px 22px rgba(0,0,0,.24);
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease;
     }
-    .actions { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 30px; }
+    .btn.secondary::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: linear-gradient(115deg, rgba(255,255,255,.10), transparent 42%, rgba(103,244,229,.045));
+    }
+    .btn.secondary:hover {
+      transform: translateY(-2px);
+      border-color: rgba(103,244,229,.58);
+      background: linear-gradient(135deg, rgba(41,31,65,.92), rgba(17,16,32,.96));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.17),
+        0 10px 28px rgba(0,0,0,.30),
+        0 0 20px rgba(103,244,229,.10);
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+    .actions .btn { position: relative; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 25px 0; }
+    .tags .pill {
+      background: rgba(18,15,31,.54);
+      border-color: rgba(255,255,255,.14);
+      color: rgba(255,249,239,.84);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.055);
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .tags .pill:hover {
+      background: rgba(103,244,229,.075);
+      border-color: rgba(103,244,229,.42);
+      transform: translateY(-2px);
+    }
     .section-head {
       display: flex; align-items: end; justify-content: space-between;
       gap: 24px; margin-bottom: 32px;
@@ -169,6 +212,44 @@
     .grid-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
     .card { padding: 28px; }
     .card p { color: var(--muted); font-size: 14px; line-height: 1.75; margin-bottom: 0; }
+
+    /* Premium glass cards for the three 01 / 02 / 03 feature columns */
+    #introduction > .grid-three .card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(103,244,229,.085), transparent 38%),
+        radial-gradient(circle at 0% 100%, rgba(150,115,255,.12), transparent 46%),
+        linear-gradient(145deg, rgba(37,28,57,.78), rgba(17,15,30,.90));
+      -webkit-backdrop-filter: blur(22px) saturate(145%);
+      backdrop-filter: blur(22px) saturate(145%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12),
+        inset 0 -1px 0 rgba(103,244,229,.045),
+        0 16px 34px rgba(0,0,0,.24);
+      transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+    }
+    #introduction > .grid-three .card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 14%;
+      right: 14%;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.38), rgba(103,244,229,.20), transparent);
+    }
+    #introduction > .grid-three .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(103,244,229,.30);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.15),
+        0 20px 42px rgba(0,0,0,.30),
+        0 0 22px rgba(150,115,255,.08);
+    }
     .number {
       font: 800 46px var(--display); color: var(--pink);
       display: block; margin-bottom: 22px;
@@ -495,6 +576,112 @@
       color: white; border-radius: 8px; padding: 8px 12px;
     }
     video { width: 100%; max-height: 65vh; border-radius: 10px; background: black; }
+
+    /* Custom video controls: no browser-native overflow menu or visible Download button. */
+    .video-player {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: #050309;
+      border-radius: 8px;
+      isolation: isolate;
+    }
+    .video-player .custom-video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      background: #050309;
+      object-fit: contain;
+    }
+    .video-controls {
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 18px 9px 7px;
+      background: linear-gradient(180deg, transparent, rgba(4,3,8,.92) 52%);
+    }
+    .video-control-button {
+      flex: 0 0 26px;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 50%;
+      color: #fff9ef;
+      background: rgba(20,16,32,.74);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+      font-size: 11px;
+      line-height: 1;
+    }
+    .video-control-button:hover,
+    .video-control-button:focus-visible {
+      color: var(--yellow);
+      border-color: rgba(103,244,229,.55);
+      background: rgba(34,27,51,.95);
+    }
+    .video-time {
+      flex: 0 0 auto;
+      min-width: 58px;
+      color: rgba(255,249,239,.92);
+      font-size: 9px;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .video-seek {
+      appearance: none;
+      -webkit-appearance: none;
+      flex: 1 1 auto;
+      width: auto;
+      min-width: 24px;
+      height: 4px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 99px;
+      background: rgba(255,255,255,.30);
+      accent-color: var(--yellow);
+      cursor: pointer;
+    }
+    .video-seek::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 9px;
+      height: 9px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(250,255,67,.14);
+    }
+    .video-seek::-moz-range-thumb {
+      width: 9px;
+      height: 9px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(250,255,67,.14);
+    }
+    .video-player:fullscreen {
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      background: #050309;
+    }
+    .video-player:fullscreen .custom-video { object-fit: contain; }
+    .video-player:fullscreen .video-controls { padding: 20px; gap: 12px; }
+    .video-player:fullscreen .video-control-button { width: 38px; height: 38px; flex-basis: 38px; font-size: 14px; }
+    .video-player:fullscreen .video-time { font-size: 12px; min-width: 75px; }
+
     .showreel-label {
       margin: 7px 13px 0; color: var(--cyan); font-size: 9px;
       font-weight: 800; letter-spacing: 1.5px;
@@ -504,10 +691,16 @@
       overflow: hidden; border: 1px solid #ffffff22; border-radius: 6px;
       background: #050309;
     }
-    video.showreel-video {
-      display: block; width: 100%; height: 100%; max-height: none;
-      border-radius: 0; object-fit: cover; background: #050309;
+    .showreel-player { height: 100%; border-radius: 0; }
+    .showreel-player .custom-video { object-fit: cover; }
+    .modal-video-player {
+      height: min(65vh, 560px);
+      min-height: 220px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
     }
+    .modal-video-player .custom-video { object-fit: contain; }
     .showreel-fallback {
       position: absolute; inset: 0; margin: 0; padding: 12px;
       display: grid; place-items: center; text-align: center;
@@ -542,6 +735,10 @@
       .page { padding-top: 40px; }
       .hero, .about-grid, .contact-grid { grid-template-columns: 1fr; }
       .hero { gap: 40px; }
+      .actions { gap: 10px; }
+      .actions .btn { flex: 1 1 125px; min-width: 0; padding: 14px 13px; gap: 10px; font-size: 12px; }
+      .tags { margin-top: 20px; gap: 7px; }
+      .tags .pill { padding: 8px 10px; font-size: 10px; }
       h1 { font-size: clamp(68px, 14vw, 100px); }
       .hero-art { max-width: 500px; width: 100%; margin: auto; }
       .comic-panel { min-height: 380px; }
@@ -599,34 +796,20 @@
   <main id="main" tabindex="-1">
 
     <!-- ============ 01 INTRODUCTION ============ -->
-       <!-- ============ 01 INTRODUCTION ============ -->
     <section class="page" id="introduction" aria-labelledby="intro-heading">
       <div class="hero">
         <div>
           <p class="eyebrow">Motion designer / Video editor / Storyteller</p>
-
-          <h1 id="intro-heading">
-            GOOD FOOTAGE.<br>
-            <span class="outline">GREAT STORY.</span><br>
-            <span class="accent">PURE IMPACT!</span>
-          </h1>
-
+          <h1 id="intro-heading">GOOD FOOTAGE<br><span class="outline">GREAT STORY</span><br><span class="accent">PURE IMPACT!</span></h1>
           <p class="lead">
             I turn raw clips into can't-look-away experiences.
             Full-time motion designer. All-format video editor.
             A little comic-book chaos. A whole lot of intention.
           </p>
-
           <div class="actions">
-            <a class="btn" href="#my-work" data-comic="ZAP!">
-              Explore my work <span aria-hidden="true">&#8599;</span>
-            </a>
-
-            <a class="btn secondary" href="#contacts" data-comic="BOOM!">
-              Work with me
-            </a>
+              <a class="btn" href="#my-work" data-comic="ZAP!">Explore my work <span aria-hidden="true">&#8599;</span></a>
+              <a class="btn secondary" href="#contacts" data-comic="BOOM!">Work with me</a>
           </div>
-
           <div class="tags">
             <span class="pill">Motion design</span>
             <span class="pill">Video editing</span>
@@ -638,39 +821,31 @@
           <div class="comic-panel" data-tilt>
             <div class="speed-lines"></div>
             <div class="big-type">MAKE<br>IT MOVE.</div>
-
             <div class="editor">
-              <div class="editor-top">
-                <i></i><i></i><i></i>
-              </div>
-
-              <p class="showreel-label">SHOWREEL / SELECTED WORK</p>
-
+              <div class="editor-top"><i></i><i></i><i></i></div>
+              <p class="showreel-label">SHORT-INTRODUCTION</p>
               <div class="showreel-frame">
-                <video
-                  class="showreel-video"
-                  id="showreel-video"
-                  controls
-                  playsinline
-                  preload="metadata"
-                >
-                  <source src="./showreel.mp4" type="video/mp4">
-                  Your browser does not support HTML video.
-                </video>
-
+                <div class="video-player showreel-player" id="showreel-player">
+                  <video class="showreel-video custom-video" id="showreel-video" playsinline preload="metadata" controlslist="nodownload noremoteplayback" disablepictureinpicture>
+                    <source src="https://shef29-rgb.github.io/frame-motion-portfolio/showreel.mp4" type="video/mp4">
+                    Your browser does not support HTML video.
+                  </video>
+                  <div class="video-controls" aria-label="Showreel controls">
+                    <button class="video-control-button" type="button" data-video-play aria-label="Play showreel"><span data-video-play-icon>▶</span></button>
+                    <span class="video-time" data-video-time>0:00 / 0:00</span>
+                    <input class="video-seek" data-video-seek type="range" min="0" max="100" step="0.1" value="0" aria-label="Seek in showreel">
+                    <button class="video-control-button" type="button" data-video-mute aria-label="Mute audio">♪</button>
+                    <button class="video-control-button" type="button" data-video-fullscreen aria-label="Enter full screen">⛶</button>
+                  </div>
+                </div>
                 <p class="showreel-fallback" id="showreel-fallback" hidden>
-                  Add your showreel video as
-                  <strong>showreel.mp4</strong>
+                  Add your showreel video as <strong>showreel.mp4</strong> in the repository root.
                 </p>
               </div>
-
-              <p class="showreel-caption">
-                CUTS THAT MAKE YOU FEEL SOMETHING.
-              </p>
+              <p class="showreel-caption">CUTS THAT MAKE YOU FEEL SOMETHING</p>
             </div>
           </div>
-
-          <div class="sticker top">NOT YOUR AVERAGE EDIT.</div>
+          <div class="sticker top">NOT YOUR AVERAGE EDIT</div>
           <div class="sticker bottom">KEYFRAMES &amp; CAFFEINE</div>
           <div class="burst">POW!</div>
         </div>
@@ -678,46 +853,23 @@
 
       <div class="ticker" aria-hidden="true">
         <div class="ticker-inner">
-          <span>
-            MOTION GRAPHICS <b>+</b> REELS <b>+</b>
-            BRAND FILMS <b>+</b> YOUTUBE <b>+</b>
-            MUSIC VIDEOS <b>+</b> DOCUMENTARIES <b>+</b>&nbsp;
-          </span>
-
-          <span>
-            MOTION GRAPHICS <b>+</b> REELS <b>+</b>
-            BRAND FILMS <b>+</b> YOUTUBE <b>+</b>
-            MUSIC VIDEOS <b>+</b> DOCUMENTARIES <b>+</b>&nbsp;
-          </span>
+          <span>MOTION GRAPHICS <b>+</b> REELS <b>+</b> BRAND FILMS <b>+</b> YOUTUBE <b>+</b> MUSIC VIDEOS <b>+</b> DOCUMENTARIES <b>+</b>&nbsp;</span>
+          <span>MOTION GRAPHICS <b>+</b> REELS <b>+</b> BRAND FILMS <b>+</b> YOUTUBE <b>+</b> MUSIC VIDEOS <b>+</b> DOCUMENTARIES <b>+</b>&nbsp;</span>
         </div>
       </div>
 
       <div class="grid-three">
         <article class="glass card" data-tilt>
-          <span class="number">01 /</span>
-          <h3>Edits with a pulse.</h3>
-          <p>
-            Strong pacing, purposeful cuts, and sound that makes every
-            moment land.
-          </p>
+          <span class="number">01 </span><h3>Edits with a pulse</h3>
+          <p>Strong pacing, purposeful cuts, and sound that makes every moment land</p>
         </article>
-
         <article class="glass card" data-tilt>
-          <span class="number">02 /</span>
-          <h3>Motion with meaning.</h3>
-          <p>
-            Animated type, graphic systems, and visual ideas built
-            around your story.
-          </p>
+          <span class="number">02 </span><h3>Motion with meaning</h3>
+          <p>Animated type, graphic systems, and visual ideas built around your story</p>
         </article>
-
         <article class="glass card" data-tilt>
-          <span class="number">03 /</span>
-          <h3>Any format. All in.</h3>
-          <p>
-            From a punchy vertical reel to a thoughtful long-form film.
-            Same attention to detail.
-          </p>
+          <span class="number">03 </span><h3>Any format All in</h3>
+          <p>From a punchy vertical reel to a thoughtful long-form film. Same attention to detail</p>
         </article>
       </div>
     </section>
@@ -734,10 +886,10 @@
           <div class="portrait-label">YOUR PHOTO GOES HERE</div>
         </div>
         <div>
-          <h2 id="about-heading">A CREATIVE BRAIN.<br><span class="accent">A TIMELINE HEART.</span></h2>
+          <h2 id="about-heading">A CREATIVE BRAIN<br><span class="accent">A TIMELINE HEART</span></h2>
           <p class="lead">
             I'm a full-time motion designer and video editor who loves
-            finding the story hiding inside raw footage.
+            finding the story hiding inside raw footage
           </p>
           <p class="lead">
             I edit all types of videos: creator content, commercials,
@@ -765,21 +917,21 @@
 
       <div class="process">
         <div class="section-head">
-          <h2>LESS GUESSWORK.<br><span class="outline">MORE GOOD WORK.</span></h2>
-          <p class="lead">A collaborative process, from the very first idea to the final export.</p>
+          <h2>LESS GUESSWORK<br><span class="outline">MORE GOOD WORK</span></h2>
+          <p class="lead">A collaborative process, from the very first idea to the final export</p>
         </div>
         <div class="grid-three">
           <article class="glass card" data-tilt>
             <span class="number">01</span><h3>Find the story</h3>
-            <p>We align on your audience, reference styles, deliverables, and the feeling you want to create.</p>
+            <p>We align on your audience, reference styles, deliverables, and the feeling you want to create</p>
           </article>
           <article class="glass card" data-tilt>
             <span class="number">02</span><h3>Build the energy</h3>
-            <p>I shape the edit, explore the motion language, and bring the visuals and sound together.</p>
+            <p>I shape the edit, explore the motion language, and bring the visuals and sound together</p>
           </article>
           <article class="glass card" data-tilt>
             <span class="number">03</span><h3>Polish &amp; deliver</h3>
-            <p>We refine the details through feedback and prepare the final formats for your platforms.</p>
+            <p>We refine the details through feedback and prepare the final formats for your platforms</p>
           </article>
         </div>
       </div>
@@ -790,9 +942,9 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">Chapter 03 / The good stuff</p>
-          <h2 id="work-heading">LESS TALK.<br><span class="accent">MORE PLAY.</span></h2>
+          <h2 id="work-heading">LESS TALK<br><span class="accent">MORE PLAY</span></h2>
         </div>
-        <p class="lead">Pick a category to go deeper. Every level has a way back.</p>
+        <p class="lead">Pick a category to go deeper. Every level has a way back</p>
       </div>
 
       <nav class="crumb" id="work-crumb" aria-label="Work breadcrumb"></nav>
@@ -949,13 +1101,20 @@
       <h3 id="modal-title">Project preview</h3>
       <button class="close" id="close-modal" aria-label="Close project preview">Close &#10005;</button>
     </div>
-    <video id="project-video" controls playsinline preload="metadata" hidden>
-      Your browser doesn't support HTML video.
-    </video>
+    <div class="video-player modal-video-player" id="project-player" hidden>
+      <video id="project-video" class="custom-video" playsinline preload="metadata" controlslist="nodownload noremoteplayback" disablepictureinpicture></video>
+      <div class="video-controls" aria-label="Project video controls">
+        <button class="video-control-button" type="button" data-video-play aria-label="Play project video"><span data-video-play-icon>▶</span></button>
+        <span class="video-time" data-video-time>0:00 / 0:00</span>
+        <input class="video-seek" data-video-seek type="range" min="0" max="100" step="0.1" value="0" aria-label="Seek in project video">
+        <button class="video-control-button" type="button" data-video-mute aria-label="Mute audio">♪</button>
+        <button class="video-control-button" type="button" data-video-fullscreen aria-label="Enter full screen">⛶</button>
+      </div>
+    </div>
     <div class="empty-preview" id="empty-preview">
       <h3>YOUR FILM. THIS STAGE.</h3>
       <p class="lead">No video has been added to this demo project.</p>
-      <p class="note">Add a local MP4 path to this project's <code>video</code> property in the code.</p>
+      <p class="note">Add an MP4 path to this project's <code>video</code> property in the code.</p>
     </div>
     <p class="note" id="modal-description" style="margin:16px 0 0"></p>
   </dialog>
@@ -964,7 +1123,7 @@
     // ===================================================================
     // EDIT THESE TWO THINGS TO MAKE IT YOURS:
     // 1. CONTACT_EMAIL below.
-    // 2. Each video: "videos/your-file.mp4" (put MP4s in a videos folder).
+    // 2. Showreel: https://shef29-rgb.github.io/frame-motion-portfolio/showreel.mp4
     // ===================================================================
     const CONTACT_EMAIL = "createsmanthan@gmail.com";
 
@@ -1069,9 +1228,9 @@
       { sub: "controversial-soundbite", title: "Controversial Soundbite Short", cover: "BOLD<br>TAKE", label: "Short-form edit", color: "#ffa66b", description: "Add a short description of the soundbite, context, captions, and pacing.", video: "", poster: "" },
       { sub: "listicle-quick-tip", title: "Listicle/Quick-Tip Short", cover: "QUICK<br>TIPS", label: "Short-form edit", color: "#faff43", description: "Add a short description of the listicle or quick-tip edit.", video: "", poster: "" },
 
-      { sub: "talking-head", title: "Talking-Head Tutorial/Explainer", cover: "TALKING<br>HEAD", label: "Long-form edit", color: "#9673ff", description: "Add a short description of the tutorial, graphics, and pacing.", video: "", poster: "" },
-      { sub: "podcast-interview", title: "Podcast/Interview Full Episode Edit", cover: "PODCAST<br>EPISODE", label: "Long-form edit", color: "#a8c5ff", description: "Add a short description of the episode edit and audio cleanup.", video: "", poster: "" },
-      { sub: "product-saas", title: "Product/SaaS Walkthrough", cover: "PRODUCT<br>TOUR", label: "Long-form edit", color: "#ffa66b", description: "Add a short description of the product walkthrough and its visual guidance.", video: "", poster: "" },
+      { sub: "talking-head", title: "Talking-Head Tutorial/Explainer", cover: "TALKING<br>HEAD", label: "Long-form edit", color: "#9673ff", description: "A presenter-led tutorial edited with purposeful cuts, clear pacing, and supporting visuals.", video: "videos/long-form/talking-head-tutorial.mp4", poster: "" },
+      { sub: "podcast-interview", title: "Podcast/Interview Full Episode Edit", cover: "PODCAST<br>EPISODE", label: "Long-form edit", color: "#a8c5ff", description: "A full conversation edit focused on clean dialogue, natural reactions, and a steady viewing rhythm.", video: "videos/long-form/podcast-interview.mp4", poster: "" },
+      { sub: "product-saas", title: "Product/SaaS Walkthrough", cover: "PRODUCT<br>TOUR", label: "Long-form edit", color: "#ffa66b", description: "A guided product walkthrough designed to make features, steps, and user flows easy to follow.", video: "videos/long-form/product-saas-walkthrough.mp4", poster: "" },
 
       { sub: "doc-profile", title: "Short Documentary-Style Profile", cover: "HUMAN<br>STORY", label: "Documentary edit", color: "#ffa66b", description: "Add a short description of the person, story, and documentary approach.", video: "", poster: "" },
       { sub: "mini-documentary", title: "Issue/Topic Mini-Documentary", cover: "MINI<br>DOC", label: "Documentary edit", color: "#67f4e5", description: "Add a short description of the topic and how the edit presents it.", video: "", poster: "" },
@@ -1166,14 +1325,12 @@
     const viewProjects = document.getElementById("view-projects");
 
     catalog.forEach(cat => {
-      const count = cat.subs.length;
       const card = document.createElement("button");
       card.type = "button";
       card.className = "cat-card";
       card.style.setProperty("--c", cat.color);
       card.dataset.comic = cat.comic;
       card.innerHTML = `
-        <span class="cat-count">${count} formats</span>
         <span class="cat-kicker">${cat.kicker}</span>
         <h3>${cat.name}</h3>
         <p>${cat.blurb}</p>
@@ -1319,18 +1476,162 @@
       else showCategories();
     });
 
+    /* ---------- Custom video controls (no native three-dot/download menu) ---------- */
+    function formatVideoTime(seconds) {
+      if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${mins}:${secs}`;
+    }
+
+    function setupCustomVideoPlayer(player) {
+      if (!player) return;
+      const media = player.querySelector("video");
+      const playButton = player.querySelector("[data-video-play]");
+      const playIcon = player.querySelector("[data-video-play-icon]");
+      const timeLabel = player.querySelector("[data-video-time]");
+      const seek = player.querySelector("[data-video-seek]");
+      const muteButton = player.querySelector("[data-video-mute]");
+      const fullscreenButton = player.querySelector("[data-video-fullscreen]");
+      if (!media || !playButton || !playIcon || !timeLabel || !seek || !muteButton || !fullscreenButton) return;
+
+      const updatePlayState = () => {
+        const playing = !media.paused && !media.ended;
+        playIcon.textContent = playing ? "Ⅱ" : "▶";
+        playButton.setAttribute("aria-label", playing ? "Pause video" : "Play video");
+        playButton.setAttribute("aria-pressed", String(playing));
+      };
+      const updateTime = () => {
+        const duration = Number.isFinite(media.duration) ? media.duration : 0;
+        timeLabel.textContent = `${formatVideoTime(media.currentTime)} / ${formatVideoTime(duration)}`;
+        seek.value = duration > 0 ? String((media.currentTime / duration) * 100) : "0";
+      };
+      const updateMute = () => {
+        muteButton.textContent = media.muted || media.volume === 0 ? "×" : "♪";
+        muteButton.setAttribute("aria-label", media.muted || media.volume === 0 ? "Unmute audio" : "Mute audio");
+      };
+
+      playButton.addEventListener("click", async () => {
+        if (media.paused || media.ended) {
+          try { await media.play(); } catch (error) { console.warn("Video playback could not start:", error); }
+        } else {
+          media.pause();
+        }
+        updatePlayState();
+      });
+      media.addEventListener("click", () => {
+        if (media.paused || media.ended) media.play().catch(error => console.warn("Video playback could not start:", error));
+        else media.pause();
+      });
+      media.addEventListener("play", updatePlayState);
+      media.addEventListener("pause", updatePlayState);
+      media.addEventListener("ended", updatePlayState);
+      media.addEventListener("timeupdate", updateTime);
+      media.addEventListener("loadedmetadata", updateTime);
+      media.addEventListener("durationchange", updateTime);
+      seek.addEventListener("input", () => {
+        if (Number.isFinite(media.duration) && media.duration > 0) {
+          media.currentTime = (Number(seek.value) / 100) * media.duration;
+          updateTime();
+        }
+      });
+      muteButton.addEventListener("click", () => {
+        media.muted = !media.muted;
+        updateMute();
+      });
+      fullscreenButton.addEventListener("click", async () => {
+        try {
+          if (document.fullscreenElement === player) {
+            await document.exitFullscreen();
+          } else if (player.requestFullscreen) {
+            await player.requestFullscreen();
+          } else if (media.webkitEnterFullscreen) {
+            media.webkitEnterFullscreen();
+          }
+        } catch (error) {
+          console.warn("Full-screen playback is unavailable in this browser:", error);
+        }
+      });
+      media.addEventListener("contextmenu", event => event.preventDefault());
+      updatePlayState();
+      updateTime();
+      updateMute();
+    }
+
+    setupCustomVideoPlayer(document.getElementById("showreel-player"));
+    setupCustomVideoPlayer(document.getElementById("project-player"));
+
     /* ---------- Hero showreel ---------- */
     const showreelVideo = document.getElementById("showreel-video");
     const showreelFallback = document.getElementById("showreel-fallback");
-    showreelVideo.addEventListener("error", () => { showreelFallback.hidden = false; });
-    showreelVideo.addEventListener("loadeddata", () => { showreelFallback.hidden = true; });
+
+    if (showreelVideo && showreelFallback) {
+      showreelVideo.addEventListener("error", () => {
+        const mediaError = showreelVideo.error;
+        showreelFallback.hidden = false;
+
+        if (mediaError && mediaError.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
+          showreelFallback.innerHTML =
+            'This MP4 format is not supported by the browser. Re-export it as <strong>MP4 (H.264 video + AAC audio)</strong>.';
+        } else {
+          showreelFallback.innerHTML =
+            'Could not load the showreel. Check that <strong>showreel.mp4</strong> is uploaded beside <strong>index.html</strong> in the repository root.';
+        }
+      });
+
+      const hideShowreelFallback = () => { showreelFallback.hidden = true; };
+      showreelVideo.addEventListener("loadeddata", hideShowreelFallback);
+      showreelVideo.addEventListener("playing", hideShowreelFallback);
+    }
 
     /* ---------- Video modal ---------- */
     const modal = document.getElementById("project-modal");
     const video = document.getElementById("project-video");
+    const projectPlayer = document.getElementById("project-player");
     const emptyPreview = document.getElementById("empty-preview");
 
+    // Project video loading supports both the published site root and the
+    // older local preview path (.vscode/timepass.html). On local preview only,
+    // it also tries ../FRAME/... because the video assets live in Desktop/FRAME.
+    let activeProject = null;
+    let projectVideoCandidates = [];
+    let projectVideoCandidateIndex = -1;
+
+    function buildProjectVideoCandidates(project) {
+      if (!project.video) return [];
+      const rawPath = project.video.trim();
+      if (/^(https?:|blob:|data:)/i.test(rawPath)) return [rawPath];
+
+      const candidates = [new URL(rawPath, document.baseURI).href];
+      const isLocalPreview = location.protocol === "file:" ||
+        location.hostname === "localhost" || location.hostname === "127.0.0.1";
+      const pagePath = location.pathname.toLowerCase();
+
+      // If the user is still opening .vscode/timepass.html, look in the real
+      // FRAME folder as well. The published GitHub Pages site does not use this.
+      if (isLocalPreview && pagePath.includes("/.vscode/")) {
+        const cleanPath = rawPath.replace(/^\.\//, "").replace(/^\//, "");
+        candidates.push(new URL(`../FRAME/${cleanPath}`, document.baseURI).href);
+      }
+
+      return [...new Set(candidates)];
+    }
+
+    function loadProjectVideoCandidate(index) {
+      if (index < 0 || index >= projectVideoCandidates.length) return false;
+      projectVideoCandidateIndex = index;
+      video.pause();
+      video.src = projectVideoCandidates[index];
+      if (activeProject && activeProject.poster) video.poster = activeProject.poster;
+      video.load();
+      return true;
+    }
+
     function openProject(project) {
+      activeProject = project;
+      projectVideoCandidates = buildProjectVideoCandidates(project);
+      projectVideoCandidateIndex = -1;
+
       document.getElementById("modal-title").textContent = project.title;
       document.getElementById("modal-description").textContent = project.description;
       video.pause();
@@ -1338,14 +1639,21 @@
       video.removeAttribute("poster");
       video.load();
 
+      // Reset any previous error state so a real connected project is not
+      // incorrectly labelled as a project with no video.
+      const emptyHeading = emptyPreview.querySelector("h3");
+      const emptyLead = emptyPreview.querySelector(".lead");
+      const emptyNote = emptyPreview.querySelector(".note");
+      emptyHeading.textContent = "YOUR FILM. THIS STAGE.";
+      emptyLead.textContent = "No video has been added to this demo project.";
+      emptyNote.innerHTML = "Add an MP4 path to this project's <code>video</code> property in the code.";
+
       if (project.video) {
-        video.hidden = false;
+        projectPlayer.hidden = false;
         emptyPreview.hidden = true;
-        video.src = project.video;
-        if (project.poster) video.poster = project.poster;
-        video.load();
+        loadProjectVideoCandidate(0);
       } else {
-        video.hidden = true;
+        projectPlayer.hidden = true;
         emptyPreview.hidden = false;
       }
       modal.showModal();
@@ -1362,13 +1670,43 @@
     modal.addEventListener("close", () => {
       video.pause();
       video.removeAttribute("src");
+      video.removeAttribute("poster");
       video.load();
+      activeProject = null;
+      projectVideoCandidates = [];
+      projectVideoCandidateIndex = -1;
     });
+
+    video.addEventListener("loadeddata", () => {
+      if (!activeProject) return;
+      projectPlayer.hidden = false;
+      emptyPreview.hidden = true;
+    });
+
     video.addEventListener("error", () => {
-      video.hidden = true;
+      if (!activeProject || !activeProject.video) return;
+
+      // The old local preview used .vscode/timepass.html while the videos are
+      // stored in FRAME/videos. Try that alternate path once before showing an error.
+      if (projectVideoCandidateIndex + 1 < projectVideoCandidates.length) {
+        loadProjectVideoCandidate(projectVideoCandidateIndex + 1);
+        return;
+      }
+
+      projectPlayer.hidden = true;
       emptyPreview.hidden = false;
+      const mediaError = video.error;
+      const emptyHeading = emptyPreview.querySelector("h3");
+      const emptyLead = emptyPreview.querySelector(".lead");
+      const emptyNote = emptyPreview.querySelector(".note");
+      const currentPath = projectVideoCandidates[projectVideoCandidateIndex] || activeProject.video;
+
+      // Be accurate: a configured video that fails to load is not an empty project.
+      emptyHeading.textContent = "VIDEO COULD NOT LOAD";
+      emptyLead.textContent = "This project has a video path, but the browser could not load the file.";
+      emptyNote.textContent = `File tried: ${currentPath}. Check the path/file name, or export as MP4 (H.264 video + AAC audio). Browser media error: ${mediaError ? mediaError.code : "unknown"}.`;
       document.getElementById("modal-description").textContent =
-        "This video could not be loaded. Check the file path and use a browser-compatible MP4.";
+        "If this is the local preview, open FRAME/index.html with Live Server. If this is the live GitHub site, upload the videos/long-form folder to the repository as well.";
     });
 
     /* ---------- Footer, email, budget popover, form ---------- */
@@ -1379,10 +1717,50 @@
       return `https://mail.google.com/mail/?${params.toString()}`;
     }
 
+    function gmailAppComposeUrl(to, subject = "", body = "") {
+      const params = new URLSearchParams({ to, subject, body });
+      return `googlegmail:///co?${params.toString()}`;
+    }
+
+    // Prefer the Gmail app on mobile. If the app is not installed or does not open,
+    // fall back to the Gmail compose page in the browser. Desktop uses Gmail web.
+    function openGmailCompose(to, subject = "", body = "") {
+      const webUrl = gmailComposeUrl(to, subject, body);
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if (!isMobile) {
+        window.open(webUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
+
+      let appOpened = false;
+      const clearFallback = () => window.clearTimeout(fallbackTimer);
+      const onVisibilityChange = () => {
+        if (document.hidden) {
+          appOpened = true;
+          clearFallback();
+          document.removeEventListener("visibilitychange", onVisibilityChange);
+        }
+      };
+
+      document.addEventListener("visibilitychange", onVisibilityChange);
+      const fallbackTimer = window.setTimeout(() => {
+        document.removeEventListener("visibilitychange", onVisibilityChange);
+        if (!appOpened && !document.hidden) window.location.href = webUrl;
+      }, 1400);
+
+      window.location.href = gmailAppComposeUrl(to, subject, body);
+    }
+
     const emailLink = document.getElementById("email-link");
     emailLink.href = gmailComposeUrl(CONTACT_EMAIL);
     emailLink.target = "_blank";
     emailLink.rel = "noopener noreferrer";
+    emailLink.addEventListener("click", event => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      openGmailCompose(CONTACT_EMAIL);
+    });
     document.getElementById("email-label").textContent = `${CONTACT_EMAIL} \u2197`;
 
     const budgetPop = document.getElementById("budget-pop");
@@ -1420,9 +1798,9 @@
         data.get("message")
       ].join("\n");
 
-      window.open(gmailComposeUrl(CONTACT_EMAIL, subject, body), "_blank", "noopener,noreferrer");
+      openGmailCompose(CONTACT_EMAIL, subject, body);
       status.textContent =
-        "Gmail compose opened in a new tab. Review the draft and press Send in Gmail when you are ready.";
+        "Opening Gmail to prepare your draft. If the Gmail app is unavailable, Gmail will open in your browser. Review the draft and press Send when you are ready.";
     });
 
     /* ---------- Pointer effects ---------- */
