@@ -295,7 +295,7 @@
     }
     .hero-art { position: relative; padding: 20px 15px 25px; perspective: 1000px; }
     .comic-panel {
-      position: relative; min-height: 410px;
+      position: relative; min-height: 520px;
       border: 3px solid var(--ink); border-radius: 20px;
       background:
         radial-gradient(#120b2925 1.3px, transparent 1.3px) 0 0 / 9px 9px,
@@ -315,7 +315,7 @@
       transform: rotate(-8deg); letter-spacing: -5px;
     }
     .editor {
-      position: absolute; inset: 105px 25px 65px;
+      position: absolute; inset: 92px 25px 52px;
       background: #151023ed; border: 2px solid var(--ink);
       box-shadow: 10px 10px 0 #0005; border-radius: 12px;
       transform: rotate(7deg);
@@ -686,16 +686,37 @@
       margin: 7px 13px 0; color: var(--cyan); font-size: 9px;
       font-weight: 800; letter-spacing: 1.5px;
     }
+    /* Keep the outer showreel frame, player surface and video viewport
+       on the same 16:9 canvas so the image does not sit inside a wider box. */
     .showreel-frame {
-      position: relative; height: 126px; margin: 7px 12px 0;
-      overflow: hidden; border: 1px solid #ffffff22; border-radius: 6px;
+      position: relative;
+      display: block;
+      width: calc(100% - 24px);
+      aspect-ratio: 16 / 9;
+      height: auto;
+      margin: 7px 12px 0;
+      overflow: hidden;
+      border: 1px solid #ffffff22;
+      border-radius: 6px;
       background: #050309;
     }
-    .showreel-player { height: 100%; border-radius: 0; }
-    .showreel-player .custom-video { object-fit: cover; }
+    .showreel-player {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 0;
+    }
+    .showreel-player .custom-video {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+    }
     .modal-video-player {
-      height: min(65vh, 560px);
-      min-height: 220px;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      min-height: 0;
       margin-bottom: 14px;
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 10px;
@@ -741,7 +762,8 @@
       .tags .pill { padding: 8px 10px; font-size: 10px; }
       h1 { font-size: clamp(68px, 14vw, 100px); }
       .hero-art { max-width: 500px; width: 100%; margin: auto; }
-      .comic-panel { min-height: 380px; }
+      .comic-panel { min-height: 470px; }
+      .editor { inset: 85px 16px 42px; }
       .section-head { display: block; }
       .grid-three, .sub-grid { grid-template-columns: 1fr; }
       .work-grid { gap: 16px; }
@@ -767,10 +789,631 @@
       [data-tilt], .btn { transform: none !important; }
       .comic-pop { display: none !important; }
     }
-  </style>
+  
+
+    /* ================================================================
+       FRAME LIQUID GLASS FINISH
+       Apple-inspired frosted glass treatment for selected UI surfaces.
+       Keeps the original FRAME purple / pink / yellow / cyan identity.
+       The actual artwork and video image are deliberately NOT blurred.
+       ================================================================ */
+
+    /* Navigation: translucent dark glass with a quiet specular edge. */
+    .topbar {
+      position: sticky;
+      isolation: isolate;
+      background: linear-gradient(
+        180deg,
+        rgba(39, 33, 54, .82) 0%,
+        rgba(20, 17, 30, .76) 58%,
+        rgba(16, 14, 25, .72) 100%
+      );
+      border-bottom: 1px solid rgba(255, 255, 255, .14);
+      -webkit-backdrop-filter: blur(30px) saturate(175%);
+      backdrop-filter: blur(30px) saturate(175%);
+      box-shadow:
+        0 10px 34px rgba(0, 0, 0, .20),
+        inset 0 1px 0 rgba(255, 255, 255, .10);
+    }
+    .topbar::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(255,255,255,.32) 22%,
+        rgba(255,255,255,.12) 72%,
+        transparent
+      );
+    }
+    .nav-wrap { position: relative; z-index: 1; }
+    nav a {
+      border: 1px solid transparent;
+      border-radius: 12px;
+      transition:
+        color .22s ease,
+        background .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease,
+        transform .22s ease;
+    }
+    nav a:hover {
+      color: var(--text);
+      background: linear-gradient(135deg, rgba(255,255,255,.105), rgba(255,255,255,.025));
+      border-color: rgba(255,255,255,.14);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      backdrop-filter: blur(18px) saturate(160%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 5px 16px rgba(0,0,0,.14);
+    }
+    nav a[aria-current="page"] {
+      color: var(--yellow);
+      background: linear-gradient(135deg, rgba(250,255,67,.13), rgba(150,115,255,.07));
+      border-color: rgba(250,255,67,.20);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.13), 0 5px 18px rgba(0,0,0,.16);
+    }
+    .menu-toggle {
+      border-color: rgba(255,255,255,.20);
+      background: linear-gradient(145deg, rgba(255,255,255,.11), rgba(255,255,255,.035));
+      -webkit-backdrop-filter: blur(20px) saturate(165%);
+      backdrop-filter: blur(20px) saturate(165%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 6px 18px rgba(0,0,0,.16);
+    }
+
+    /* Selected small surfaces: filter chips, back buttons and subcategory cards. */
+    .filter,
+    .back,
+    .sub-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: linear-gradient(145deg,
+        rgba(255,255,255,.105) 0%,
+        rgba(255,255,255,.045) 42%,
+        rgba(103,244,229,.025) 100%
+      );
+      border: 1px solid rgba(255,255,255,.17);
+      -webkit-backdrop-filter: blur(24px) saturate(165%);
+      backdrop-filter: blur(24px) saturate(165%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        inset 0 -1px 0 rgba(255,255,255,.035),
+        0 8px 22px rgba(0,0,0,.16);
+      transition:
+        transform .22s ease,
+        border-color .22s ease,
+        background .22s ease,
+        box-shadow .22s ease;
+    }
+    .filter::before,
+    .back::before,
+    .sub-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      pointer-events: none;
+      background: linear-gradient(120deg,
+        rgba(255,255,255,.13),
+        transparent 35%,
+        transparent 72%,
+        rgba(150,115,255,.07)
+      );
+      opacity: .8;
+    }
+    .filter:hover,
+    .back:hover,
+    .sub-card:hover {
+      border-color: rgba(103,244,229,.34);
+      background: linear-gradient(145deg, rgba(255,255,255,.14), rgba(103,244,229,.055));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.19),
+        0 12px 26px rgba(0,0,0,.22),
+        0 0 18px rgba(150,115,255,.07);
+    }
+    .filter[aria-pressed="true"] {
+      color: var(--ink);
+      background: linear-gradient(145deg, var(--yellow), #e4e84a);
+      border-color: rgba(255,255,255,.40);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.46), 0 6px 18px rgba(250,255,67,.12);
+    }
+    .crumb {
+      width: fit-content;
+      max-width: 100%;
+      padding: 9px 14px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+      -webkit-backdrop-filter: blur(20px) saturate(155%);
+      backdrop-filter: blur(20px) saturate(155%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 6px 18px rgba(0,0,0,.12);
+    }
+
+    /* The colourful category cards stay comic-book solid; only their
+       surrounding information surfaces receive the frosted treatment. */
+    .work-card {
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 18px;
+      background: rgba(18,15,29,.72);
+      box-shadow: 0 12px 30px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.09);
+      -webkit-backdrop-filter: blur(18px) saturate(145%);
+      backdrop-filter: blur(18px) saturate(145%);
+    }
+    .work-info {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: linear-gradient(145deg,
+        rgba(48,39,65,.78),
+        rgba(20,17,31,.88) 58%,
+        rgba(21,26,39,.82)
+      );
+      border-top: 1px solid rgba(255,255,255,.13);
+      -webkit-backdrop-filter: blur(22px) saturate(165%);
+      backdrop-filter: blur(22px) saturate(165%);
+    }
+    .work-info::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 8%;
+      right: 8%;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.32), rgba(103,244,229,.12), transparent);
+    }
+    .work-card:hover {
+      border-color: rgba(103,244,229,.28);
+      box-shadow: 0 16px 36px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.13);
+    }
+
+    /* Project modal: a dark, translucent glass sheet; video pixels remain clear. */
+    dialog#project-modal {
+      background: linear-gradient(145deg,
+        rgba(37,31,52,.94),
+        rgba(18,15,29,.96) 55%,
+        rgba(21,21,34,.94)
+      );
+      border: 1px solid rgba(255,255,255,.19);
+      -webkit-backdrop-filter: blur(32px) saturate(175%);
+      backdrop-filter: blur(32px) saturate(175%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.17),
+        0 32px 110px rgba(0,0,0,.56),
+        0 0 42px rgba(150,115,255,.075);
+    }
+    dialog#project-modal::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 8%;
+      right: 8%;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.34), transparent);
+    }
+    dialog::backdrop {
+      background: rgba(4,3,9,.76);
+      -webkit-backdrop-filter: blur(16px) saturate(115%);
+      backdrop-filter: blur(16px) saturate(115%);
+    }
+    .close {
+      background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.035));
+      border: 1px solid rgba(255,255,255,.19);
+      -webkit-backdrop-filter: blur(18px) saturate(155%);
+      backdrop-filter: blur(18px) saturate(155%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 6px 18px rgba(0,0,0,.18);
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .close:hover {
+      background: linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
+      border-color: rgba(103,244,229,.36);
+      transform: translateY(-1px);
+    }
+
+    /* Liquid-glass player controls. No blur is placed over the video itself. */
+    .video-controls {
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      gap: 9px;
+      padding: 8px 11px;
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 999px;
+      background: linear-gradient(135deg,
+        rgba(49,43,62,.78),
+        rgba(14,13,23,.72) 58%,
+        rgba(26,31,43,.76)
+      );
+      -webkit-backdrop-filter: blur(26px) saturate(180%);
+      backdrop-filter: blur(26px) saturate(180%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        inset 0 -1px 0 rgba(255,255,255,.045),
+        0 8px 24px rgba(0,0,0,.28);
+    }
+    .video-controls::before {
+      content: "";
+      position: absolute;
+      inset: 1px 12% auto;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.38), transparent);
+    }
+    .video-control-button {
+      border-color: rgba(255,255,255,.22);
+      background: linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.045));
+      -webkit-backdrop-filter: blur(16px) saturate(170%);
+      backdrop-filter: blur(16px) saturate(170%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.20), 0 3px 10px rgba(0,0,0,.18);
+      transition: color .18s ease, border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+    .video-control-button:hover,
+    .video-control-button:focus-visible {
+      color: var(--yellow);
+      border-color: rgba(103,244,229,.52);
+      background: linear-gradient(145deg, rgba(103,244,229,.18), rgba(255,255,255,.07));
+      transform: translateY(-1px);
+    }
+    .video-seek {
+      background: rgba(255,255,255,.28);
+      accent-color: var(--yellow);
+    }
+    .video-player {
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 12px 32px rgba(0,0,0,.23), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .video-player:fullscreen .video-controls {
+      left: 22px;
+      right: 22px;
+      bottom: 18px;
+      border-radius: 18px;
+    }
+
+    /* The CTA and introductory feature cards retain their existing colours,
+       with a more refined glass edge and gentle specular highlight. */
+    .btn.secondary {
+      background: linear-gradient(145deg, rgba(52,43,69,.72), rgba(17,15,28,.82));
+      border-color: rgba(255,255,255,.21);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.20),
+        inset 0 -1px 0 rgba(255,255,255,.035),
+        0 8px 24px rgba(0,0,0,.25);
+      -webkit-backdrop-filter: blur(24px) saturate(175%);
+      backdrop-filter: blur(24px) saturate(175%);
+    }
+    .btn.secondary:hover {
+      border-color: rgba(103,244,229,.42);
+      background: linear-gradient(145deg, rgba(63,51,83,.80), rgba(20,18,33,.88));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 12px 28px rgba(0,0,0,.30);
+    }
+    #introduction > .grid-three .card {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.105), transparent 38%),
+        radial-gradient(circle at 100% 0%, rgba(103,244,229,.07), transparent 40%),
+        linear-gradient(145deg, rgba(41,32,61,.74), rgba(17,15,30,.86));
+      border-color: rgba(255,255,255,.17);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        inset 0 -1px 0 rgba(255,255,255,.04),
+        0 16px 36px rgba(0,0,0,.24);
+    }
+
+    /* Fallback: preserve contrast and the same dark/purple appearance where
+       backdrop-filter is not supported. */
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .topbar,
+      .filter,
+      .back,
+      .sub-card,
+      .work-info,
+      dialog#project-modal,
+      .video-controls,
+      .video-control-button,
+      .btn.secondary {
+        background-color: rgba(20,17,30,.96);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .video-controls {
+        left: 6px;
+        right: 6px;
+        bottom: 6px;
+        gap: 6px;
+        padding: 6px 8px;
+      }
+      .video-control-button {
+        flex-basis: 25px;
+        width: 25px;
+        height: 25px;
+      }
+      .video-time { min-width: 52px; font-size: 8px; }
+      .crumb { border-radius: 14px; }
+      dialog#project-modal { padding: 16px; }
+    }
+
+
+    /* ================================================================
+       APPLE-INSPIRED LIQUID GLASS — REFERENCE-BASED FINISH
+       Inspired by the linked After Effects tutorial: subtle backdrop
+       refraction, clear glass, bright edge rims and moving specular light.
+       Original FRAME purple / pink / yellow / cyan identity is preserved.
+       The video image itself is never filtered.
+       ================================================================ */
+
+    /* The shared glass surfaces use a clear, low-blur material rather than
+       a cloudy white pane. The SVG filter adds gentle backdrop bending in
+       Chromium browsers; normal backdrop blur remains as a cross-browser fallback. */
+    .topbar,
+    .btn.secondary,
+    #introduction > .grid-three .card,
+    .crumb,
+    .back,
+    .sub-card,
+    .filter,
+    .work-info,
+    dialog#project-modal,
+    .video-controls,
+    .video-control-button {
+      --glass-x: 18%;
+      --glass-y: 0%;
+      border-color: rgba(255,255,255,.25);
+      -webkit-backdrop-filter: blur(3px) saturate(185%) brightness(1.06);
+      backdrop-filter: blur(3px) saturate(185%) brightness(1.06);
+      /* SVG displacement approximates the lens/refraction part of the reference.
+         If unsupported, the previous blur/saturation declaration remains active. */
+      backdrop-filter: url("#frame-liquid-refraction") blur(2px) saturate(185%) brightness(1.06);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.34),
+        inset 0 -1px 0 rgba(255,255,255,.075),
+        inset 1px 0 0 rgba(255,255,255,.10),
+        0 14px 34px rgba(0,0,0,.22);
+    }
+
+    /* Nav: retain its dark purple tint, add a clear glass sheen and fine rim. */
+    .topbar {
+      background:
+        radial-gradient(120% 190% at var(--glass-x) var(--glass-y), rgba(255,255,255,.17), transparent 56%),
+        linear-gradient(180deg, rgba(47,39,64,.78), rgba(18,16,29,.78));
+      border-bottom-color: rgba(255,255,255,.22);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        inset 0 -1px 0 rgba(255,255,255,.055),
+        0 12px 34px rgba(0,0,0,.24);
+    }
+    .topbar::before {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.42) 22%, rgba(103,244,229,.18) 72%, transparent);
+    }
+    nav a:hover {
+      background:
+        radial-gradient(130% 180% at var(--glass-x,50%) var(--glass-y,0%), rgba(255,255,255,.20), transparent 58%),
+        linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.035));
+      border-color: rgba(255,255,255,.22);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.26), 0 6px 18px rgba(0,0,0,.18);
+    }
+    nav a[aria-current="page"] {
+      background:
+        radial-gradient(130% 180% at 20% 0%, rgba(250,255,67,.17), transparent 60%),
+        linear-gradient(135deg, rgba(250,255,67,.12), rgba(150,115,255,.075));
+      border-color: rgba(250,255,67,.24);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.24), 0 6px 18px rgba(0,0,0,.16);
+    }
+    .menu-toggle {
+      background:
+        radial-gradient(130% 180% at 20% 0%, rgba(255,255,255,.18), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.11), rgba(255,255,255,.035));
+      border-color: rgba(255,255,255,.24);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.26), 0 6px 18px rgba(0,0,0,.18);
+    }
+
+    /* The 01 / 02 / 03 panels: stronger optical edge, same dark FRAME glass. */
+    #introduction > .grid-three .card {
+      background:
+        radial-gradient(135% 170% at var(--glass-x) var(--glass-y), rgba(255,255,255,.19), transparent 52%),
+        radial-gradient(circle at 100% 0%, rgba(103,244,229,.075), transparent 42%),
+        radial-gradient(circle at 0% 100%, rgba(150,115,255,.13), transparent 48%),
+        linear-gradient(145deg, rgba(46,36,67,.64), rgba(16,14,27,.77));
+      border-color: rgba(255,255,255,.24);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.35),
+        inset 0 -1px 0 rgba(255,255,255,.075),
+        0 16px 36px rgba(0,0,0,.24);
+    }
+    #introduction > .grid-three .card::after {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.52), rgba(103,244,229,.22), transparent);
+      opacity: .9;
+    }
+    #introduction > .grid-three .card:hover {
+      border-color: rgba(255,255,255,.34);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.42),
+        0 20px 42px rgba(0,0,0,.29),
+        0 0 22px rgba(150,115,255,.10);
+    }
+
+    /* Breadcrumb: single floating capsule with a glass rim. */
+    .crumb {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 9px;
+      width: fit-content;
+      max-width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 999px;
+      background:
+        radial-gradient(145% 220% at var(--glass-x) var(--glass-y), rgba(255,255,255,.20), transparent 58%),
+        linear-gradient(135deg, rgba(57,48,74,.60), rgba(19,17,31,.64));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.36),
+        inset 0 -1px 0 rgba(255,255,255,.07),
+        0 10px 26px rgba(0,0,0,.19);
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .crumb::-webkit-scrollbar { display: none; }
+    .crumb b { color: var(--yellow); }
+    .crumb > span { color: rgba(255,255,255,.55); }
+
+    /* Back button: a compact clear-glass control, never switches to a solid yellow fill. */
+    .back {
+      position: relative;
+      overflow: hidden;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.27);
+      background:
+        radial-gradient(140% 190% at var(--glass-x) var(--glass-y), rgba(255,255,255,.20), transparent 58%),
+        linear-gradient(135deg, rgba(55,46,72,.66), rgba(17,15,29,.73));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.36),
+        inset 0 -1px 0 rgba(255,255,255,.07),
+        0 9px 24px rgba(0,0,0,.20);
+    }
+    .back:hover {
+      color: var(--text);
+      border-color: rgba(103,244,229,.48);
+      background:
+        radial-gradient(140% 190% at var(--glass-x) var(--glass-y), rgba(255,255,255,.25), transparent 58%),
+        linear-gradient(135deg, rgba(66,55,86,.76), rgba(20,18,34,.82));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.42), 0 12px 28px rgba(0,0,0,.25), 0 0 18px rgba(103,244,229,.09);
+    }
+
+    /* Subcategory cards and project information: selected surfaces only.
+       Bright category artwork and video pixels stay untouched. */
+    .sub-card {
+      background:
+        radial-gradient(145% 190% at var(--glass-x) var(--glass-y), rgba(255,255,255,.17), transparent 56%),
+        linear-gradient(145deg, rgba(49,40,66,.62), rgba(17,15,29,.74));
+      border-color: rgba(255,255,255,.22);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.31), inset 0 -1px 0 rgba(255,255,255,.06), 0 12px 28px rgba(0,0,0,.19);
+    }
+    .sub-card:hover {
+      border-color: rgba(103,244,229,.42);
+      background:
+        radial-gradient(145% 190% at var(--glass-x) var(--glass-y), rgba(255,255,255,.23), transparent 56%),
+        linear-gradient(145deg, rgba(59,48,79,.72), rgba(19,17,32,.82));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.39), 0 15px 32px rgba(0,0,0,.24);
+    }
+    .filter {
+      background:
+        radial-gradient(140% 180% at var(--glass-x) var(--glass-y), rgba(255,255,255,.18), transparent 55%),
+        linear-gradient(135deg, rgba(50,42,67,.58), rgba(17,15,29,.68));
+      border-color: rgba(255,255,255,.23);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 7px 18px rgba(0,0,0,.16);
+    }
+    .filter:hover {
+      border-color: rgba(103,244,229,.42);
+      background:
+        radial-gradient(140% 180% at var(--glass-x) var(--glass-y), rgba(255,255,255,.23), transparent 55%),
+        linear-gradient(135deg, rgba(59,50,77,.68), rgba(20,18,33,.76));
+    }
+    .filter[aria-pressed="true"] {
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--yellow), #e9ed50);
+      border-color: rgba(255,255,255,.48);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.56), 0 7px 20px rgba(250,255,67,.14);
+    }
+    .work-info {
+      background:
+        radial-gradient(145% 180% at var(--glass-x) var(--glass-y), rgba(255,255,255,.14), transparent 58%),
+        linear-gradient(145deg, rgba(43,35,60,.76), rgba(16,14,27,.88));
+      border-top-color: rgba(255,255,255,.22);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.22);
+    }
+    .work-info::before {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.48), rgba(103,244,229,.20), transparent);
+    }
+
+    /* Dialog and player controls have the same glass edge. The footage stays clear. */
+    dialog#project-modal {
+      background:
+        radial-gradient(140% 190% at var(--glass-x) var(--glass-y), rgba(255,255,255,.16), transparent 58%),
+        linear-gradient(145deg, rgba(42,34,58,.96), rgba(17,15,28,.97));
+      border-color: rgba(255,255,255,.26);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.30), 0 32px 110px rgba(0,0,0,.56);
+    }
+    .video-controls {
+      background:
+        radial-gradient(140% 190% at var(--glass-x) var(--glass-y), rgba(255,255,255,.23), transparent 58%),
+        linear-gradient(135deg, rgba(63,55,77,.78), rgba(15,14,25,.82));
+      border-color: rgba(255,255,255,.30);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.42), inset 0 -1px 0 rgba(255,255,255,.08), 0 9px 26px rgba(0,0,0,.30);
+    }
+    .video-control-button {
+      background:
+        radial-gradient(140% 180% at var(--glass-x) var(--glass-y), rgba(255,255,255,.28), transparent 58%),
+        linear-gradient(145deg, rgba(75,67,90,.82), rgba(23,20,35,.88));
+      border-color: rgba(255,255,255,.30);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.42), 0 4px 12px rgba(0,0,0,.20);
+    }
+
+    /* Desktop pointer light: the specular highlight follows the pointer.
+       Touch screens keep a fixed gentle highlight and do not need hover. */
+    @media (hover: hover) and (pointer: fine) {
+      .topbar,
+      .btn.secondary,
+      #introduction > .grid-three .card,
+      .crumb,
+      .back,
+      .sub-card,
+      .filter,
+      .work-info,
+      dialog#project-modal,
+      .video-controls,
+      .video-control-button {
+        transition: background-position .18s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+      }
+    }
+
+    /* Responsive glass spacing; preserve the existing FRAME mobile layout. */
+    @media (max-width: 760px) {
+      .crumb {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 16px;
+        padding: 10px 12px;
+      }
+      .back { min-height: 42px; }
+      #introduction > .grid-three .card {
+        -webkit-backdrop-filter: blur(2px) saturate(175%);
+        backdrop-filter: blur(2px) saturate(175%);
+      }
+    }
+
+    /* Safari/Firefox and older browser fallback: keep the glass finish even
+       where SVG-based backdrop displacement is not implemented. */
+    @supports not (backdrop-filter: url("#frame-liquid-refraction")) {
+      .topbar, .btn.secondary, #introduction > .grid-three .card, .crumb, .back,
+      .sub-card, .filter, .work-info, dialog#project-modal, .video-controls, .video-control-button {
+        -webkit-backdrop-filter: blur(4px) saturate(175%) brightness(1.06);
+        backdrop-filter: blur(4px) saturate(175%) brightness(1.06);
+      }
+    }
+
+</style>
 </head>
 
 <body>
+
+  <!-- Inline SVG backdrop refraction map for Chromium-based browsers.
+       Browsers without SVG backdrop-filter support fall back to regular glass blur. -->
+  <svg class="liquid-glass-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <filter id="frame-liquid-refraction" x="-18%" y="-18%" width="136%" height="136%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.014" numOctaves="1" seed="8" result="liquidNoise" />
+        <feDisplacementMap in="SourceGraphic" in2="liquidNoise" scale="6" xChannelSelector="R" yChannelSelector="G" result="refractedBackdrop" />
+        <feGaussianBlur in="refractedBackdrop" stdDeviation="0.22" />
+      </filter>
+    </defs>
+  </svg>
   <a class="skip" href="#main">Skip to content</a>
   <div class="ambient" aria-hidden="true">
     <div class="orb one"></div>
@@ -800,7 +1443,7 @@
       <div class="hero">
         <div>
           <p class="eyebrow">Motion designer / Video editor / Storyteller</p>
-          <h1 id="intro-heading">GOOD FOOTAGE<br><span class="outline">GREAT STORY</span><br><span class="accent">PURE IMPACT!</span></h1>
+          <h1 id="intro-heading">GOOD FOOTAGE.<br><span class="outline">GREAT STORY.</span><br><span class="accent">PURE IMPACT!</span></h1>
           <p class="lead">
             I turn raw clips into can't-look-away experiences.
             Full-time motion designer. All-format video editor.
@@ -823,11 +1466,11 @@
             <div class="big-type">MAKE<br>IT MOVE.</div>
             <div class="editor">
               <div class="editor-top"><i></i><i></i><i></i></div>
-              <p class="showreel-label">SHORT-INTRODUCTION</p>
+              <p class="showreel-label">SHOWREEL / SELECTED WORK</p>
               <div class="showreel-frame">
                 <div class="video-player showreel-player" id="showreel-player">
                   <video class="showreel-video custom-video" id="showreel-video" playsinline preload="metadata" controlslist="nodownload noremoteplayback" disablepictureinpicture>
-                    <source src="https://shef29-rgb.github.io/frame-motion-portfolio/showreel.mp4" type="video/mp4">
+                    <source src="./showreel.mp4" type="video/mp4">
                     Your browser does not support HTML video.
                   </video>
                   <div class="video-controls" aria-label="Showreel controls">
@@ -842,10 +1485,10 @@
                   Add your showreel video as <strong>showreel.mp4</strong> in the repository root.
                 </p>
               </div>
-              <p class="showreel-caption">CUTS THAT MAKE YOU FEEL SOMETHING</p>
+              <p class="showreel-caption">CUTS THAT MAKE YOU FEEL SOMETHING.</p>
             </div>
           </div>
-          <div class="sticker top">NOT YOUR AVERAGE EDIT</div>
+          <div class="sticker top">NOT YOUR AVERAGE EDIT.</div>
           <div class="sticker bottom">KEYFRAMES &amp; CAFFEINE</div>
           <div class="burst">POW!</div>
         </div>
@@ -860,16 +1503,16 @@
 
       <div class="grid-three">
         <article class="glass card" data-tilt>
-          <span class="number">01 </span><h3>Edits with a pulse</h3>
-          <p>Strong pacing, purposeful cuts, and sound that makes every moment land</p>
+          <span class="number">01 /</span><h3>Edits with a pulse.</h3>
+          <p>Strong pacing, purposeful cuts, and sound that makes every moment land.</p>
         </article>
         <article class="glass card" data-tilt>
-          <span class="number">02 </span><h3>Motion with meaning</h3>
-          <p>Animated type, graphic systems, and visual ideas built around your story</p>
+          <span class="number">02 /</span><h3>Motion with meaning.</h3>
+          <p>Animated type, graphic systems, and visual ideas built around your story.</p>
         </article>
         <article class="glass card" data-tilt>
-          <span class="number">03 </span><h3>Any format All in</h3>
-          <p>From a punchy vertical reel to a thoughtful long-form film. Same attention to detail</p>
+          <span class="number">03 /</span><h3>Any format. All in.</h3>
+          <p>From a punchy vertical reel to a thoughtful long-form film. Same attention to detail.</p>
         </article>
       </div>
     </section>
@@ -886,10 +1529,10 @@
           <div class="portrait-label">YOUR PHOTO GOES HERE</div>
         </div>
         <div>
-          <h2 id="about-heading">A CREATIVE BRAIN<br><span class="accent">A TIMELINE HEART</span></h2>
+          <h2 id="about-heading">A CREATIVE BRAIN.<br><span class="accent">A TIMELINE HEART.</span></h2>
           <p class="lead">
             I'm a full-time motion designer and video editor who loves
-            finding the story hiding inside raw footage
+            finding the story hiding inside raw footage.
           </p>
           <p class="lead">
             I edit all types of videos: creator content, commercials,
@@ -917,21 +1560,21 @@
 
       <div class="process">
         <div class="section-head">
-          <h2>LESS GUESSWORK<br><span class="outline">MORE GOOD WORK</span></h2>
-          <p class="lead">A collaborative process, from the very first idea to the final export</p>
+          <h2>LESS GUESSWORK.<br><span class="outline">MORE GOOD WORK.</span></h2>
+          <p class="lead">A collaborative process, from the very first idea to the final export.</p>
         </div>
         <div class="grid-three">
           <article class="glass card" data-tilt>
             <span class="number">01</span><h3>Find the story</h3>
-            <p>We align on your audience, reference styles, deliverables, and the feeling you want to create</p>
+            <p>We align on your audience, reference styles, deliverables, and the feeling you want to create.</p>
           </article>
           <article class="glass card" data-tilt>
             <span class="number">02</span><h3>Build the energy</h3>
-            <p>I shape the edit, explore the motion language, and bring the visuals and sound together</p>
+            <p>I shape the edit, explore the motion language, and bring the visuals and sound together.</p>
           </article>
           <article class="glass card" data-tilt>
             <span class="number">03</span><h3>Polish &amp; deliver</h3>
-            <p>We refine the details through feedback and prepare the final formats for your platforms</p>
+            <p>We refine the details through feedback and prepare the final formats for your platforms.</p>
           </article>
         </div>
       </div>
@@ -942,9 +1585,9 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">Chapter 03 / The good stuff</p>
-          <h2 id="work-heading">LESS TALK<br><span class="accent">MORE PLAY</span></h2>
+          <h2 id="work-heading">LESS TALK.<br><span class="accent">MORE PLAY.</span></h2>
         </div>
-        <p class="lead">Pick a category to go deeper. Every level has a way back</p>
+        <p class="lead">Pick a category to go deeper. Every level has a way back.</p>
       </div>
 
       <nav class="crumb" id="work-crumb" aria-label="Work breadcrumb"></nav>
@@ -1123,7 +1766,7 @@
     // ===================================================================
     // EDIT THESE TWO THINGS TO MAKE IT YOURS:
     // 1. CONTACT_EMAIL below.
-    // 2. Showreel: https://shef29-rgb.github.io/frame-motion-portfolio/showreel.mp4
+    // 2. Keep showreel.mp4 beside this index.html file (repository root).
     // ===================================================================
     const CONTACT_EMAIL = "createsmanthan@gmail.com";
 
@@ -1600,19 +2243,41 @@
     function buildProjectVideoCandidates(project) {
       if (!project.video) return [];
       const rawPath = project.video.trim();
-      if (/^(https?:|blob:|data:)/i.test(rawPath)) return [rawPath];
+      if (/^(https?:|blob:|data:|file:)/i.test(rawPath)) return [rawPath];
 
-      const candidates = [new URL(rawPath, document.baseURI).href];
-      const isLocalPreview = location.protocol === "file:" ||
-        location.hostname === "localhost" || location.hostname === "127.0.0.1";
-      const pagePath = location.pathname.toLowerCase();
+      // Project paths are relative to index.html. This works when opening
+      // Desktop/FRAME/index.html directly, with Live Server, and on GitHub Pages.
+      const cleanPath = rawPath.replace(/^\.\//, "").replace(/^\/+/, "");
+      const candidates = [];
 
-      // If the user is still opening .vscode/timepass.html, look in the real
-      // FRAME folder as well. The published GitHub Pages site does not use this.
-      if (isLocalPreview && pagePath.includes("/.vscode/")) {
-        const cleanPath = rawPath.replace(/^\.\//, "").replace(/^\//, "");
-        candidates.push(new URL(`../FRAME/${cleanPath}`, document.baseURI).href);
+      try {
+        candidates.push(new URL(cleanPath, document.baseURI).href);
+      } catch (error) {
+        console.warn("Could not resolve the local video path:", rawPath, error);
       }
+
+      const isLocalFile = location.protocol === "file:";
+      const isLocalServer = location.hostname === "localhost" ||
+        location.hostname === "127.0.0.1";
+      const pagePath = decodeURIComponent(location.pathname).toLowerCase();
+
+      // Compatibility for the old .vscode/timepass.html preview, whose assets
+      // are stored in Desktop/FRAME rather than inside .vscode.
+      if ((isLocalFile || isLocalServer) && pagePath.includes("/.vscode/")) {
+        try {
+          candidates.push(new URL(`../FRAME/${cleanPath}`, document.baseURI).href);
+        } catch (error) {
+          console.warn("Could not resolve the legacy FRAME asset path:", error);
+        }
+      }
+
+      // A public URL is a fallback for hosted previews. This works only after
+      // the MP4 is committed to GitHub at the matching relative path.
+      const githubUrl = new URL(
+        cleanPath,
+        "https://shef29-rgb.github.io/frame-motion-portfolio/"
+      ).href;
+      candidates.push(githubUrl);
 
       return [...new Set(candidates)];
     }
@@ -1686,8 +2351,8 @@
     video.addEventListener("error", () => {
       if (!activeProject || !activeProject.video) return;
 
-      // The old local preview used .vscode/timepass.html while the videos are
-      // stored in FRAME/videos. Try that alternate path once before showing an error.
+      // If running the old .vscode/timepass.html local preview, try the matching
+      // asset under Desktop/FRAME before reporting an error.
       if (projectVideoCandidateIndex + 1 < projectVideoCandidates.length) {
         loadProjectVideoCandidate(projectVideoCandidateIndex + 1);
         return;
@@ -1700,13 +2365,43 @@
       const emptyLead = emptyPreview.querySelector(".lead");
       const emptyNote = emptyPreview.querySelector(".note");
       const currentPath = projectVideoCandidates[projectVideoCandidateIndex] || activeProject.video;
+      const isGitHubPages = location.hostname === "shef29-rgb.github.io";
+      const isPublishedGitHubAsset = currentPath.startsWith(
+        "https://shef29-rgb.github.io/frame-motion-portfolio/"
+      );
 
-      // Be accurate: a configured video that fails to load is not an empty project.
-      emptyHeading.textContent = "VIDEO COULD NOT LOAD";
-      emptyLead.textContent = "This project has a video path, but the browser could not load the file.";
-      emptyNote.textContent = `File tried: ${currentPath}. Check the path/file name, or export as MP4 (H.264 video + AAC audio). Browser media error: ${mediaError ? mediaError.code : "unknown"}.`;
-      document.getElementById("modal-description").textContent =
-        "If this is the local preview, open FRAME/index.html with Live Server. If this is the live GitHub site, upload the videos/long-form folder to the repository as well.";
+      // A missing MP4 in the deployed repository cannot be fixed by changing HTML.
+      // Check the public URL so the message distinguishes a missing asset from a codec issue.
+      const showGenericMediaError = () => {
+        emptyHeading.textContent = "VIDEO COULD NOT PLAY";
+        emptyLead.textContent = "The page has a video path, but the browser could not play the file.";
+        emptyNote.textContent = `File tried: ${currentPath}. If the file is present, re-export it as MP4 (H.264 video + AAC audio). Browser media error: ${mediaError ? mediaError.code : "unknown"}.`;
+        document.getElementById("modal-description").textContent =
+          "For the live site, make sure the matching MP4 is uploaded to the GitHub repository at videos/long-form/ and that the commit has been pushed. For local testing, keep the file in the same relative path next to index.html.";
+      };
+
+      showGenericMediaError();
+
+      if ((isGitHubPages || isPublishedGitHubAsset) && /^https:\/\//i.test(currentPath)) {
+        fetch(currentPath, { method: "HEAD", cache: "no-store" })
+          .then(response => {
+            if (!activeProject) return;
+            if (response.status === 404) {
+              emptyHeading.textContent = "VIDEO FILE NOT UPLOADED";
+              emptyLead.textContent = "The HTML path is set, but this MP4 is missing from the published GitHub site.";
+              emptyNote.textContent = `Expected repository file: ${activeProject.video}. Upload the video to this exact path, then commit and push it to GitHub.`;
+              document.getElementById("modal-description").textContent =
+                "The video is not published at this URL yet. Upload the MP4 to the frame-motion-portfolio repository under videos/long-form/ and push the commit. Files stored only on your computer are not available to the live website.";
+            } else if (response.ok) {
+              emptyHeading.textContent = "VIDEO FORMAT NOT SUPPORTED";
+              emptyLead.textContent = "The file URL exists, but the browser could not decode the video.";
+              emptyNote.textContent = `File found: ${currentPath}. Re-export this video as MP4 with H.264 video and AAC audio. Browser media error: ${mediaError ? mediaError.code : "unknown"}.`;
+              document.getElementById("modal-description").textContent =
+                "The file is published at the expected location. Check the video codec and audio codec, then re-upload the converted file if needed.";
+            }
+          })
+          .catch(() => {});
+      }
     });
 
     /* ---------- Footer, email, budget popover, form ---------- */
@@ -1835,6 +2530,38 @@
       });
       button.addEventListener("pointerleave", () => button.style.transform = "");
     });
-  </script>
+  
+
+    /* Pointer-responsive specular reflection for the liquid-glass surfaces.
+       Works with dynamically generated breadcrumb/subcategory/project elements. */
+    (() => {
+      const liquidSurfaceSelector = [
+        ".topbar", ".btn.secondary", "#introduction > .grid-three .card",
+        ".crumb", ".back", ".sub-card", ".filter", ".work-info",
+        "dialog#project-modal", ".video-controls", ".video-control-button"
+      ].join(",");
+
+      document.addEventListener("pointermove", event => {
+        if (event.pointerType === "touch") return;
+        const surface = event.target.closest(liquidSurfaceSelector);
+        if (!surface) return;
+        const rect = surface.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const x = Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100));
+        const y = Math.max(0, Math.min(100, ((event.clientY - rect.top) / rect.height) * 100));
+        surface.style.setProperty("--glass-x", `${x.toFixed(1)}%`);
+        surface.style.setProperty("--glass-y", `${y.toFixed(1)}%`);
+      }, { passive: true });
+
+      document.addEventListener("pointerout", event => {
+        const surface = event.target.closest(liquidSurfaceSelector);
+        if (!surface) return;
+        if (event.relatedTarget instanceof Node && surface.contains(event.relatedTarget)) return;
+        surface.style.setProperty("--glass-x", "18%");
+        surface.style.setProperty("--glass-y", "0%");
+      });
+    })();
+
+</script>
 </body>
 </html>
