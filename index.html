@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#100e19">
   <meta name="description" content="A motion designer and video editor portfolio.">
-  <title>FRAME! | Motion Designer & Video Editor</title>
+  <title>FRAME | Motion Designer & Video Editor</title>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap');
@@ -90,7 +90,7 @@
       transform: rotate(-5deg); color: var(--yellow);
       text-shadow: 3px 3px 0 #000;
     }
-    .brand span { display: inline-block; margin-left: 5px; color: var(--pink); }
+    .brand span { display: inline-block; width: 7px; height: 29px; margin-left: 7px; border-radius: 2px; background: var(--pink); vertical-align: middle; }
     nav { display: flex; gap: 5px; }
     nav a {
       padding: 10px 14px; border-radius: 9px;
@@ -315,7 +315,13 @@
       transform: rotate(-8deg); letter-spacing: -5px;
     }
     .editor {
-      position: absolute; inset: 92px 25px 52px;
+      position: absolute;
+      top: 92px;
+      left: 25px;
+      right: 25px;
+      bottom: auto;
+      height: auto;
+      padding-bottom: 12px;
       background: #151023ed; border: 2px solid var(--ink);
       box-shadow: 10px 10px 0 #0005; border-radius: 12px;
       transform: rotate(7deg);
@@ -712,6 +718,11 @@
       aspect-ratio: 16 / 9;
       object-fit: contain;
     }
+    .showreel-video,
+    .modal-video-player .custom-video {
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+    }
     .modal-video-player {
       width: 100%;
       height: auto;
@@ -763,7 +774,7 @@
       h1 { font-size: clamp(68px, 14vw, 100px); }
       .hero-art { max-width: 500px; width: 100%; margin: auto; }
       .comic-panel { min-height: 470px; }
-      .editor { inset: 85px 16px 42px; }
+      .editor { top: 85px; left: 16px; right: 16px; bottom: auto; height: auto; padding-bottom: 12px; }
       .section-head { display: block; }
       .grid-three, .sub-grid { grid-template-columns: 1fr; }
       .work-grid { gap: 16px; }
@@ -1403,8 +1414,8 @@
 
 <body>
 
-  <!-- Inline SVG backdrop refraction map for Chromium-based browsers.
-       Browsers without SVG backdrop-filter support fall back to regular glass blur. -->
+  <!-- Inline SVG backdrop refraction map for Chromium-based browsers
+       Browsers without SVG backdrop-filter support fall back to regular glass blur -->
   <svg class="liquid-glass-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden">
     <defs>
       <filter id="frame-liquid-refraction" x="-18%" y="-18%" width="136%" height="136%" color-interpolation-filters="sRGB">
@@ -1423,7 +1434,7 @@
 
   <header class="topbar">
     <div class="nav-wrap">
-      <a class="brand" href="#introduction" aria-label="FRAME home">FRAME<span>!</span></a>
+      <a class="brand" href="#introduction" aria-label="FRAME home">FRAME<span aria-hidden="true"></span></a>
       <button class="menu-toggle" aria-expanded="false" aria-controls="navigation">Menu</button>
       <nav id="navigation" aria-label="Main navigation">
         <a href="#introduction">Introduction</a>
@@ -1432,7 +1443,7 @@
         <a href="#reviews">Reviews</a>
         <a href="#contacts">Contacts</a>
       </nav>
-      <a class="status" href="#contacts" data-comic="LET&#39;S GO!">Let's create something</a>
+      <a class="status" href="#contacts" data-comic="LET&#39;S GO">Let's create something</a>
     </div>
   </header>
 
@@ -1443,15 +1454,15 @@
       <div class="hero">
         <div>
           <p class="eyebrow">Motion designer / Video editor / Storyteller</p>
-          <h1 id="intro-heading">GOOD FOOTAGE.<br><span class="outline">GREAT STORY.</span><br><span class="accent">PURE IMPACT!</span></h1>
+          <h1 id="intro-heading">GOOD FOOTAGE<br><span class="outline">GREAT STORY</span><br><span class="accent">PURE IMPACT</span></h1>
           <p class="lead">
-            I turn raw clips into can't-look-away experiences.
-            Full-time motion designer. All-format video editor.
-            A little comic-book chaos. A whole lot of intention.
+            I turn raw clips into can't-look-away experiences
+            Full-time motion designer All-format video editor
+            A little comic-book chaos A whole lot of intention
           </p>
           <div class="actions">
-              <a class="btn" href="#my-work" data-comic="ZAP!">Explore my work <span aria-hidden="true">&#8599;</span></a>
-              <a class="btn secondary" href="#contacts" data-comic="BOOM!">Work with me</a>
+              <a class="btn" href="#my-work" data-comic="ZAP">Explore my work <span aria-hidden="true">&#8599;</span></a>
+              <a class="btn secondary" href="#contacts" data-comic="BOOM">Work with me</a>
           </div>
           <div class="tags">
             <span class="pill">Motion design</span>
@@ -1463,15 +1474,15 @@
         <div class="hero-art">
           <div class="comic-panel" data-tilt>
             <div class="speed-lines"></div>
-            <div class="big-type">MAKE<br>IT MOVE.</div>
+            <div class="big-type">MAKE<br>IT MOVE</div>
             <div class="editor">
               <div class="editor-top"><i></i><i></i><i></i></div>
               <p class="showreel-label">SHOWREEL / SELECTED WORK</p>
               <div class="showreel-frame">
                 <div class="video-player showreel-player" id="showreel-player">
-                  <video class="showreel-video custom-video" id="showreel-video" playsinline preload="metadata" controlslist="nodownload noremoteplayback" disablepictureinpicture>
+                  <video class="showreel-video custom-video" id="showreel-video" width="1920" height="1080" playsinline preload="metadata" controlslist="nodownload noremoteplayback" disablepictureinpicture>
                     <source src="./showreel.mp4" type="video/mp4">
-                    Your browser does not support HTML video.
+                    Your browser does not support HTML video
                   </video>
                   <div class="video-controls" aria-label="Showreel controls">
                     <button class="video-control-button" type="button" data-video-play aria-label="Play showreel"><span data-video-play-icon>▶</span></button>
@@ -1482,15 +1493,15 @@
                   </div>
                 </div>
                 <p class="showreel-fallback" id="showreel-fallback" hidden>
-                  Add your showreel video as <strong>showreel.mp4</strong> in the repository root.
+                  Add your showreel video as <strong>showreel.mp4</strong> in the repository root
                 </p>
               </div>
-              <p class="showreel-caption">CUTS THAT MAKE YOU FEEL SOMETHING.</p>
+              <p class="showreel-caption">CUTS THAT MAKE YOU FEEL SOMETHING</p>
             </div>
           </div>
-          <div class="sticker top">NOT YOUR AVERAGE EDIT.</div>
+          <div class="sticker top">NOT YOUR AVERAGE EDIT</div>
           <div class="sticker bottom">KEYFRAMES &amp; CAFFEINE</div>
-          <div class="burst">POW!</div>
+          <div class="burst">POW</div>
         </div>
       </div>
 
@@ -1503,16 +1514,16 @@
 
       <div class="grid-three">
         <article class="glass card" data-tilt>
-          <span class="number">01 /</span><h3>Edits with a pulse.</h3>
-          <p>Strong pacing, purposeful cuts, and sound that makes every moment land.</p>
+          <span class="number">01 /</span><h3>Edits with a pulse</h3>
+          <p>Strong pacing, purposeful cuts, and sound that makes every moment land</p>
         </article>
         <article class="glass card" data-tilt>
-          <span class="number">02 /</span><h3>Motion with meaning.</h3>
-          <p>Animated type, graphic systems, and visual ideas built around your story.</p>
+          <span class="number">02 /</span><h3>Motion with meaning</h3>
+          <p>Animated type, graphic systems, and visual ideas built around your story</p>
         </article>
         <article class="glass card" data-tilt>
-          <span class="number">03 /</span><h3>Any format. All in.</h3>
-          <p>From a punchy vertical reel to a thoughtful long-form film. Same attention to detail.</p>
+          <span class="number">03 /</span><h3>Any format All in</h3>
+          <p>From a punchy vertical reel to a thoughtful long-form film Same attention to detail</p>
         </article>
       </div>
     </section>
@@ -1522,24 +1533,24 @@
       <p class="eyebrow">Chapter 02 / The person behind the pixels</p>
       <div class="about-grid">
         <div class="portrait" data-tilt>
-          <div class="portrait-sticker a">CUT<br>IT!</div>
+          <div class="portrait-sticker a">CUT<br>IT</div>
           <div class="portrait-sticker b">FAST<br>CUTS</div>
           <div class="portrait-sticker c">SFX</div>
-          <div class="portrait-word">IDEAS.<br>FRAMES.<br>FEELINGS.</div>
+          <div class="portrait-word">IDEAS<br>FRAMES<br>FEELINGS</div>
           <div class="portrait-label">YOUR PHOTO GOES HERE</div>
         </div>
         <div>
-          <h2 id="about-heading">A CREATIVE BRAIN.<br><span class="accent">A TIMELINE HEART.</span></h2>
+          <h2 id="about-heading">A CREATIVE BRAIN<br><span class="accent">A TIMELINE HEART</span></h2>
           <p class="lead">
             I'm a full-time motion designer and video editor who loves
-            finding the story hiding inside raw footage.
+            finding the story hiding inside raw footage
           </p>
           <p class="lead">
             I edit all types of videos: creator content, commercials,
             music videos, wedding films, documentaries, gaming edits,
-            corporate videos, and social-first campaigns.
+            corporate videos, and social-first campaigns
             My approach is simple: understand the feeling, build the rhythm,
-            and make every frame earn its place.
+            and make every frame earn its place
           </p>
           <div class="tags">
             <span class="pill">Editing &amp; pacing</span>
@@ -1548,33 +1559,33 @@
             <span class="pill">Sound design</span>
             <span class="pill">Animated typography</span>
           </div>
-          <a class="btn" href="#contacts" data-comic="HIYA!">Meet your next creative partner &#8599;</a>
+          <a class="btn" href="#contacts" data-comic="HIYA">Meet your next creative partner &#8599;</a>
 
           <div class="captions">
-            <div class="caption"><b>"HOW WAS THAT CUT?"</b><br>Every project starts as a mess of clips and a feeling. The job is finding the order that makes the feeling obvious.</div>
-            <div class="caption"><b>"IS IT TOO FAST?"</b><br>If you noticed the cut, it was too slow. If you felt it, it was right.</div>
-            <div class="caption"><b>"HOW MANY ROUNDS?"</b><br>As many as it takes for the story to click. Feedback is part of the craft, not a problem.</div>
+            <div class="caption"><b>"HOW WAS THAT CUT?"</b><br>Every project starts as a mess of clips and a feeling The job is finding the order that makes the feeling obvious</div>
+            <div class="caption"><b>"IS IT TOO FAST?"</b><br>If you noticed the cut, it was too slow If you felt it, it was right</div>
+            <div class="caption"><b>"HOW MANY ROUNDS?"</b><br>As many as it takes for the story to click Feedback is part of the craft, not a problem</div>
           </div>
         </div>
       </div>
 
       <div class="process">
         <div class="section-head">
-          <h2>LESS GUESSWORK.<br><span class="outline">MORE GOOD WORK.</span></h2>
-          <p class="lead">A collaborative process, from the very first idea to the final export.</p>
+          <h2>LESS GUESSWORK<br><span class="outline">MORE GOOD WORK</span></h2>
+          <p class="lead">A collaborative process, from the very first idea to the final export</p>
         </div>
         <div class="grid-three">
           <article class="glass card" data-tilt>
             <span class="number">01</span><h3>Find the story</h3>
-            <p>We align on your audience, reference styles, deliverables, and the feeling you want to create.</p>
+            <p>We align on your audience, reference styles, deliverables, and the feeling you want to create</p>
           </article>
           <article class="glass card" data-tilt>
             <span class="number">02</span><h3>Build the energy</h3>
-            <p>I shape the edit, explore the motion language, and bring the visuals and sound together.</p>
+            <p>I shape the edit, explore the motion language, and bring the visuals and sound together</p>
           </article>
           <article class="glass card" data-tilt>
             <span class="number">03</span><h3>Polish &amp; deliver</h3>
-            <p>We refine the details through feedback and prepare the final formats for your platforms.</p>
+            <p>We refine the details through feedback and prepare the final formats for your platforms</p>
           </article>
         </div>
       </div>
@@ -1585,9 +1596,9 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">Chapter 03 / The good stuff</p>
-          <h2 id="work-heading">LESS TALK.<br><span class="accent">MORE PLAY.</span></h2>
+          <h2 id="work-heading">LESS TALK<br><span class="accent">MORE PLAY</span></h2>
         </div>
-        <p class="lead">Pick a category to go deeper. Every level has a way back.</p>
+        <p class="lead">Pick a category to go deeper Every level has a way back</p>
       </div>
 
       <nav class="crumb" id="work-crumb" aria-label="Work breadcrumb"></nav>
@@ -1620,14 +1631,14 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">Chapter 04 / The collaboration</p>
-          <h2 id="reviews-heading">GOOD WORK.<br><span class="accent">GOOD WORDS.</span></h2>
+          <h2 id="reviews-heading">GOOD WORK<br><span class="accent">GOOD WORDS</span></h2>
         </div>
-        <p class="lead">Sample testimonial cards. These are layout examples, not real client endorsements.</p>
+        <p class="lead">Sample testimonial cards These are layout examples, not real client endorsements</p>
       </div>
       <div class="grid-three">
         <article class="glass card review" data-tilt>
           <div class="quote-icon" aria-hidden="true">&ldquo;</div>
-          <blockquote>Use this space for a client's feedback on how your editing improved their story and brought their creative vision to life.</blockquote>
+          <blockquote>Use this space for a client's feedback on how your editing improved their story and brought their creative vision to life</blockquote>
           <div class="review-person">
             <div class="avatar" aria-hidden="true">01</div>
             <div><strong>Client name</strong><small>Sample review / Brand project</small></div>
@@ -1635,7 +1646,7 @@
         </article>
         <article class="glass card review" data-tilt>
           <div class="quote-icon" aria-hidden="true">&ldquo;</div>
-          <blockquote>Add an approved testimonial about your motion design, attention to detail, and the experience of collaborating with you.</blockquote>
+          <blockquote>Add an approved testimonial about your motion design, attention to detail, and the experience of collaborating with you</blockquote>
           <div class="review-person">
             <div class="avatar" aria-hidden="true">02</div>
             <div><strong>Client name</strong><small>Sample review / Motion project</small></div>
@@ -1643,7 +1654,7 @@
         </article>
         <article class="glass card review" data-tilt>
           <div class="quote-icon" aria-hidden="true">&ldquo;</div>
-          <blockquote>Feature a creator's real feedback about your pacing, communication, and ability to make their videos feel unmistakably theirs.</blockquote>
+          <blockquote>Feature a creator's real feedback about your pacing, communication, and ability to make their videos feel unmistakably theirs</blockquote>
           <div class="review-person">
             <div class="avatar" aria-hidden="true">03</div>
             <div><strong>Client name</strong><small>Sample review / Creator project</small></div>
@@ -1652,10 +1663,10 @@
       </div>
       <div class="glass banner">
         <div>
-          <h3>Your story could be next.</h3>
-          <p class="lead" style="margin-bottom:0">Let's make something worth talking about.</p>
+          <h3>Your story could be next</h3>
+          <p class="lead" style="margin-bottom:0">Let's make something worth talking about</p>
         </div>
-        <a href="#contacts" class="btn" data-comic="POW!">Work with me &#8599;</a>
+        <a href="#contacts" class="btn" data-comic="POW">Work with me &#8599;</a>
       </div>
     </section>
 
@@ -1664,34 +1675,34 @@
       <div class="contact-grid">
         <div>
           <p class="eyebrow">Chapter 05 / Your move</p>
-          <h2 id="contact-heading">GOT A VISION?<br><span class="accent">LET'S HIT PLAY.</span></h2>
+          <h2 id="contact-heading">GOT A VISION?<br><span class="accent">LET'S HIT PLAY</span></h2>
           <p class="lead">
-            Tell me what you're making, who it's for, and when you need it.
-            Rough idea or detailed brief — both are welcome.
+            Tell me what you're making, who it's for, and when you need it
+            Rough idea or detailed brief — both are welcome
           </p>
 
-          <a class="contact-link" id="email-link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=createsmanthan%40gmail.com" target="_blank" rel="noopener noreferrer" data-comic="SENT!">
+          <a class="contact-link" id="email-link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=createsmanthan%40gmail.com" target="_blank" rel="noopener noreferrer" data-comic="SENT">
             <small>Email / Replace with your address</small>
-            <span id="email-label">createsmanthan@gmail.com;</span>
+            <span id="email-label">createsmanthan@gmail.com</span>
           </a>
           <button class="contact-link" type="button" id="budget-trigger" style="width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);color:inherit">
             <small>Not sure what this costs?</small>
             <span>Pick a budget tier &#8599;</span>
           </button>
           <div class="contact-link">
-            <small>Working style</small><span>Remote-friendly. Story-first.</span>
+            <small>Working style</small><span>Remote-friendly Story-first</span>
           </div>
           <div class="contact-link">
             <small>Projects</small><span>One-off edits &amp; ongoing collaborations</span>
           </div>
-          <a class="contact-link" href="#my-work" data-comic="ZOOM!">
+          <a class="contact-link" href="#my-work" data-comic="ZOOM">
             <small>Still deciding?</small><span>See the work first &#8599;</span>
           </a>
         </div>
 
         <form class="glass" id="contact-form">
-          <h3>The next great edit starts here.</h3>
-          <p class="note">This form opens your email app with a prepared draft. It doesn't send or store your message.</p>
+          <h3>The next great edit starts here</h3>
+          <p class="note">This form opens your email app with a prepared draft It doesn't send or store your message</p>
           <div class="field-row">
             <div>
               <label for="name">Your name</label>
@@ -1703,7 +1714,7 @@
             </div>
           </div>
           <label for="project">What are we making?</label>
-          <input id="project" name="project" placeholder="Brand film, YouTube edit, motion graphics..." required maxlength="150">
+          <input id="project" name="project" placeholder="Brand film, YouTube edit, motion graphics" required maxlength="150">
           <div class="field-row">
             <div>
               <label for="budget">Budget range (optional)</label>
@@ -1715,8 +1726,8 @@
             </div>
           </div>
           <label for="message">Tell me about your idea</label>
-          <textarea id="message" name="message" placeholder="The story, style, length, and anything else I should know..." required maxlength="3000"></textarea>
-          <button class="btn" type="submit" data-comic="ACTION!">Create email draft &#8599;</button>
+          <textarea id="message" name="message" placeholder="The story, style, length, and anything else I should know" required maxlength="3000"></textarea>
+          <button class="btn" type="submit" data-comic="ACTION">Create email draft &#8599;</button>
           <p id="form-status" class="form-status" role="status"></p>
         </form>
       </div>
@@ -1724,7 +1735,7 @@
       <!-- comic popover: budget tiers -->
       <dialog class="budget-pop" id="budget-pop" popover="auto" aria-labelledby="budget-pop-title">
         <h4 id="budget-pop-title">Pick your tier</h4>
-        <p>Tap one and it fills the budget field. You can change it afterwards.</p>
+        <p>Tap one and it fills the budget field You can change it afterwards</p>
         <button class="tier" type="button" data-tier="Starter / short social edit"><b>STARTER</b>One short social edit</button>
         <button class="tier" type="button" data-tier="Standard / full campaign edit"><b>STANDARD</b>A full campaign or brand film</button>
         <button class="tier" type="button" data-tier="Ongoing / monthly retainer"><b>ONGOING</b>Monthly retainer, multiple edits</button>
@@ -1734,9 +1745,9 @@
   </main>
 
   <footer>
-    <span>&copy; <span id="year"></span> FRAME! / Independent motion &amp; editing.</span>
-    <span>Made to move you. Not just your pixels.</span>
-    <a href="#contacts" data-comic="GO!">Let's collaborate &#8599;</a>
+    <span>&copy; <span id="year"></span> FRAME / Independent motion &amp; editing</span>
+    <span>Made to move you Not just your pixels</span>
+    <a href="#contacts" data-comic="GO">Let's collaborate &#8599;</a>
   </footer>
 
   <dialog id="project-modal" aria-labelledby="modal-title">
@@ -1745,7 +1756,7 @@
       <button class="close" id="close-modal" aria-label="Close project preview">Close &#10005;</button>
     </div>
     <div class="video-player modal-video-player" id="project-player" hidden>
-      <video id="project-video" class="custom-video" playsinline preload="metadata" controlslist="nodownload noremoteplayback" disablepictureinpicture></video>
+      <video id="project-video" class="custom-video" width="1920" height="1080" playsinline preload="metadata" controlslist="nodownload noremoteplayback" disablepictureinpicture></video>
       <div class="video-controls" aria-label="Project video controls">
         <button class="video-control-button" type="button" data-video-play aria-label="Play project video"><span data-video-play-icon>▶</span></button>
         <span class="video-time" data-video-time>0:00 / 0:00</span>
@@ -1755,9 +1766,9 @@
       </div>
     </div>
     <div class="empty-preview" id="empty-preview">
-      <h3>YOUR FILM. THIS STAGE.</h3>
-      <p class="lead">No video has been added to this demo project.</p>
-      <p class="note">Add an MP4 path to this project's <code>video</code> property in the code.</p>
+      <h3>YOUR FILM THIS STAGE</h3>
+      <p class="lead">No video has been added to this demo project</p>
+      <p class="note">Add an MP4 path to this project's <code>video</code> property in the code</p>
     </div>
     <p class="note" id="modal-description" style="margin:16px 0 0"></p>
   </dialog>
@@ -1776,89 +1787,89 @@
         id: "short-form",
         name: "Short-Form Videos",
         kicker: "0:07 to 1:00",
-        blurb: "Fast, focused edits built around a strong hook, a clear idea, and a satisfying payoff.",
+        blurb: "Fast, focused edits built around a strong hook, a clear idea, and a satisfying payoff",
         color: "#ff5198",
-        comic: "SCROLL!",
+        comic: "SCROLL",
         subs: [
-          { id: "hook-insight", name: "Hook-Driven Insight Short", blurb: "A sharp opening earns attention, then delivers one useful insight.", comic: "HOOKED!" },
-          { id: "story-arc", name: "Story-Arc Short", blurb: "A compact beginning, middle, and payoff that makes a short feel like a story.", comic: "PLOT!" },
-          { id: "controversial-soundbite", name: "Controversial Soundbite Short", blurb: "A bold statement shaped with context, rhythm, captions, and intentional pacing.", comic: "BOLD!" },
-          { id: "listicle-quick-tip", name: "Listicle/Quick-Tip Short", blurb: "Quick, useful points made easy to follow with clean structure and punchy captions.", comic: "TIPS!" }
+          { id: "hook-insight", name: "Hook-Driven Insight Short", blurb: "A sharp opening earns attention, then delivers one useful insight", comic: "HOOKED" },
+          { id: "story-arc", name: "Story-Arc Short", blurb: "A compact beginning, middle, and payoff that makes a short feel like a story", comic: "PLOT" },
+          { id: "controversial-soundbite", name: "Controversial Soundbite Short", blurb: "A bold statement shaped with context, rhythm, captions, and intentional pacing", comic: "BOLD" },
+          { id: "listicle-quick-tip", name: "Listicle/Quick-Tip Short", blurb: "Quick, useful points made easy to follow with clean structure and punchy captions", comic: "TIPS" }
         ]
       },
       {
         id: "long-form",
         name: "Long-Form Videos",
         kicker: "3:00 and up",
-        blurb: "Clear, engaging long-form edits that keep the story moving without losing the detail.",
+        blurb: "Clear, engaging long-form edits that keep the story moving without losing the detail",
         color: "#9673ff",
-        comic: "EPIC!",
+        comic: "EPIC",
         subs: [
-          { id: "talking-head", name: "Talking-Head Tutorial/Explainer", blurb: "A presenter-led edit with purposeful cuts, helpful graphics, and a clear flow.", comic: "EXPLAIN!" },
-          { id: "podcast-interview", name: "Podcast/Interview Full Episode Edit", blurb: "A full conversation edited for clarity, pace, natural reactions, and strong audio.", comic: "TALK!" },
-          { id: "product-saas", name: "Product/SaaS Walkthrough", blurb: "A product walkthrough that makes features and user flows easy to understand.", comic: "HOW-TO!" }
+          { id: "talking-head", name: "Talking-Head Tutorial/Explainer", blurb: "A presenter-led edit with purposeful cuts, helpful graphics, and a clear flow", comic: "EXPLAIN" },
+          { id: "podcast-interview", name: "Podcast/Interview Full Episode Edit", blurb: "A full conversation edited for clarity, pace, natural reactions, and strong audio", comic: "TALK" },
+          { id: "product-saas", name: "Product/SaaS Walkthrough", blurb: "A product walkthrough that makes features and user flows easy to understand", comic: "HOW-TO" }
         ]
       },
       {
         id: "documentary",
         name: "Documentary Edits",
         kicker: "Real stories",
-        blurb: "Human, thoughtful storytelling built from interviews, real moments, and meaningful detail.",
+        blurb: "Human, thoughtful storytelling built from interviews, real moments, and meaningful detail",
         color: "#ffa66b",
-        comic: "REAL!",
+        comic: "REAL",
         subs: [
-          { id: "doc-profile", name: "Short Documentary-Style Profile", blurb: "A short, character-led portrait shaped around real people and honest moments.", comic: "HUMAN!" },
-          { id: "mini-documentary", name: "Issue/Topic Mini-Documentary", blurb: "A focused mini-documentary that makes a topic understandable and emotionally engaging.", comic: "TRUTH!" }
+          { id: "doc-profile", name: "Short Documentary-Style Profile", blurb: "A short, character-led portrait shaped around real people and honest moments", comic: "HUMAN" },
+          { id: "mini-documentary", name: "Issue/Topic Mini-Documentary", blurb: "A focused mini-documentary that makes a topic understandable and emotionally engaging", comic: "TRUTH" }
         ]
       },
       {
         id: "motion-graphics",
         name: "Motion Graphics Edits",
         kicker: "Type in motion",
-        blurb: "Motion graphics that simplify ideas, strengthen identity, and make information memorable.",
+        blurb: "Motion graphics that simplify ideas, strengthen identity, and make information memorable",
         color: "#faff43",
-        comic: "MOVE!",
+        comic: "MOVE",
         subs: [
-          { id: "animated-explainer", name: "Explainer with Animated Graphics", blurb: "Animated visuals, icons, and diagrams that help an idea click quickly.", comic: "AH-HA!" },
-          { id: "lower-thirds-titles", name: "Lower-Thirds and Title Sequence Pack", blurb: "A consistent set of animated lower-thirds, titles, and openers for a video series.", comic: "TITLE!" }
+          { id: "animated-explainer", name: "Explainer with Animated Graphics", blurb: "Animated visuals, icons, and diagrams that help an idea click quickly", comic: "AH-HA" },
+          { id: "lower-thirds-titles", name: "Lower-Thirds and Title Sequence Pack", blurb: "A consistent set of animated lower-thirds, titles, and openers for a video series", comic: "TITLE" }
         ]
       },
       {
         id: "color-grading",
         name: "Color Grading",
         kicker: "Mood / tone / finish",
-        blurb: "Color work that creates a deliberate mood while keeping faces and footage consistent.",
+        blurb: "Color work that creates a deliberate mood while keeping faces and footage consistent",
         color: "#67f4e5",
-        comic: "GRADE!",
+        comic: "GRADE",
         subs: [
-          { id: "flat-to-cinematic", name: "Before/After Flat-to-Cinematic Grade", blurb: "A clear before-and-after comparison showing a flat image transformed into a cinematic look.", comic: "GLOW!" },
-          { id: "skin-tone-consistency", name: "Skin-Tone Consistency Reel", blurb: "A grading reel focused on natural, consistent skin tones across different shots.", comic: "NATURAL!" },
-          { id: "mood-grade", name: "Mood-Based Grade Comparison", blurb: "Different color moods applied to footage to show how grading changes the feeling.", comic: "MOOD!" }
+          { id: "flat-to-cinematic", name: "Before/After Flat-to-Cinematic Grade", blurb: "A clear before-and-after comparison showing a flat image transformed into a cinematic look", comic: "GLOW" },
+          { id: "skin-tone-consistency", name: "Skin-Tone Consistency Reel", blurb: "A grading reel focused on natural, consistent skin tones across different shots", comic: "NATURAL" },
+          { id: "mood-grade", name: "Mood-Based Grade Comparison", blurb: "Different color moods applied to footage to show how grading changes the feeling", comic: "MOOD" }
         ]
       },
       {
         id: "sound-design",
         name: "Sound Design",
         kicker: "Hear the difference",
-        blurb: "Dialogue, music, ambience, and effects layered to make every cut feel intentional.",
+        blurb: "Dialogue, music, ambience, and effects layered to make every cut feel intentional",
         color: "#b198ff",
-        comic: "SOUND!",
+        comic: "SOUND",
         subs: [
-          { id: "dialogue-cleanup", name: "Dialogue Cleanup + Music Bed", blurb: "Clearer speech with balanced music that supports rather than competes with the voice.", comic: "CLEAR!" },
-          { id: "sfx-short", name: "SFX-Driven Short-Form Edit", blurb: "A short edit where carefully timed sound effects add impact and energy.", comic: "BOOM!" },
-          { id: "ambient-mix", name: "Full Ambient + Music Mix", blurb: "An immersive mix combining atmosphere, music, and balanced levels.", comic: "IMMERSIVE!" }
+          { id: "dialogue-cleanup", name: "Dialogue Cleanup + Music Bed", blurb: "Clearer speech with balanced music that supports rather than competes with the voice", comic: "CLEAR" },
+          { id: "sfx-short", name: "SFX-Driven Short-Form Edit", blurb: "A short edit where carefully timed sound effects add impact and energy", comic: "BOOM" },
+          { id: "ambient-mix", name: "Full Ambient + Music Mix", blurb: "An immersive mix combining atmosphere, music, and balanced levels", comic: "IMMERSIVE" }
         ]
       },
       {
         id: "after-effects",
         name: "After Effects Animation",
         kicker: "Frame by frame",
-        blurb: "Expressive animation made with timing, keyframes, and visual movement that serves the idea.",
+        blurb: "Expressive animation made with timing, keyframes, and visual movement that serves the idea",
         color: "#ff75ab",
-        comic: "KEYFRAME!",
+        comic: "KEYFRAME",
         subs: [
-          { id: "kinetic-typography", name: "Kinetic Typography", blurb: "Words animated to rhythm, emphasis, and emotion.", comic: "TYPE!" },
-          { id: "two-d-animation", name: "2D Animation", blurb: "Stylized 2D movement, transitions, and animated scenes built frame by frame.", comic: "ANIMATE!" }
+          { id: "kinetic-typography", name: "Kinetic Typography", blurb: "Words animated to rhythm, emphasis, and emotion", comic: "TYPE" },
+          { id: "two-d-animation", name: "2D Animation", blurb: "Stylized 2D movement, transitions, and animated scenes built frame by frame", comic: "ANIMATE" }
         ]
       }
     ];
@@ -1866,31 +1877,31 @@
     // One portfolio slot per subcategory. Add a video path when the clip is ready.
     // Example: video: "videos/hook-insight.mp4"
     const projects = [
-      { sub: "hook-insight", title: "Hook-Driven Insight Short", cover: "HOOK<br>+ INSIGHT", label: "Short-form edit", color: "#ff5198", description: "Add a short description of the hook, idea, and editing choices for this clip.", video: "", poster: "" },
-      { sub: "story-arc", title: "Story-Arc Short", cover: "STORY<br>ARC", label: "Short-form edit", color: "#ff75ab", description: "Add a short description of the story and its beginning, middle, and payoff.", video: "", poster: "" },
-      { sub: "controversial-soundbite", title: "Controversial Soundbite Short", cover: "BOLD<br>TAKE", label: "Short-form edit", color: "#ffa66b", description: "Add a short description of the soundbite, context, captions, and pacing.", video: "", poster: "" },
-      { sub: "listicle-quick-tip", title: "Listicle/Quick-Tip Short", cover: "QUICK<br>TIPS", label: "Short-form edit", color: "#faff43", description: "Add a short description of the listicle or quick-tip edit.", video: "", poster: "" },
+      { sub: "hook-insight", title: "Hook-Driven Insight Short", cover: "HOOK<br>+ INSIGHT", label: "Short-form edit", color: "#ff5198", description: "Add a short description of the hook, idea, and editing choices for this clip", video: "", poster: "" },
+      { sub: "story-arc", title: "Story-Arc Short", cover: "STORY<br>ARC", label: "Short-form edit", color: "#ff75ab", description: "Add a short description of the story and its beginning, middle, and payoff", video: "", poster: "" },
+      { sub: "controversial-soundbite", title: "Controversial Soundbite Short", cover: "BOLD<br>TAKE", label: "Short-form edit", color: "#ffa66b", description: "Add a short description of the soundbite, context, captions, and pacing", video: "", poster: "" },
+      { sub: "listicle-quick-tip", title: "Listicle/Quick-Tip Short", cover: "QUICK<br>TIPS", label: "Short-form edit", color: "#faff43", description: "Add a short description of the listicle or quick-tip edit", video: "", poster: "" },
 
-      { sub: "talking-head", title: "Talking-Head Tutorial/Explainer", cover: "TALKING<br>HEAD", label: "Long-form edit", color: "#9673ff", description: "A presenter-led tutorial edited with purposeful cuts, clear pacing, and supporting visuals.", video: "talking-head-tutorial.mp4", poster: "" },
-      { sub: "podcast-interview", title: "Podcast/Interview Full Episode Edit", cover: "PODCAST<br>EPISODE", label: "Long-form edit", color: "#a8c5ff", description: "A full conversation edit focused on clean dialogue, natural reactions, and a steady viewing rhythm.", video: "podcast-interview .mp4", poster: "" },
-      { sub: "product-saas", title: "Product/SaaS Walkthrough", cover: "PRODUCT<br>TOUR", label: "Long-form edit", color: "#ffa66b", description: "A guided product walkthrough designed to make features, steps, and user flows easy to follow.", video: "product-saas-walkthrough.mp4", poster: "" },
+      { sub: "talking-head", title: "Talking-Head Tutorial/Explainer", cover: "TALKING<br>HEAD", label: "Long-form edit", color: "#9673ff", description: "A presenter-led tutorial edited with purposeful cuts, clear pacing, and supporting visuals", video: "talking-head-tutorial.mp4", poster: "" },
+      { sub: "podcast-interview", title: "Podcast/Interview Full Episode Edit", cover: "PODCAST<br>EPISODE", label: "Long-form edit", color: "#a8c5ff", description: "A full conversation edit focused on clean dialogue, natural reactions, and a steady viewing rhythm", video: "podcast-interview%20.mp4", poster: "" },
+      { sub: "product-saas", title: "Product/SaaS Walkthrough", cover: "PRODUCT<br>TOUR", label: "Long-form edit", color: "#ffa66b", description: "A guided product walkthrough designed to make features, steps, and user flows easy to follow", video: "product-saas-walkthrough.mp4", poster: "" },
 
-      { sub: "doc-profile", title: "Short Documentary-Style Profile", cover: "HUMAN<br>STORY", label: "Documentary edit", color: "#ffa66b", description: "Add a short description of the person, story, and documentary approach.", video: "", poster: "" },
-      { sub: "mini-documentary", title: "Issue/Topic Mini-Documentary", cover: "MINI<br>DOC", label: "Documentary edit", color: "#67f4e5", description: "Add a short description of the topic and how the edit presents it.", video: "", poster: "" },
+      { sub: "doc-profile", title: "Short Documentary-Style Profile", cover: "HUMAN<br>STORY", label: "Documentary edit", color: "#ffa66b", description: "Add a short description of the person, story, and documentary approach", video: "", poster: "" },
+      { sub: "mini-documentary", title: "Issue/Topic Mini-Documentary", cover: "MINI<br>DOC", label: "Documentary edit", color: "#67f4e5", description: "Add a short description of the topic and how the edit presents it", video: "", poster: "" },
 
-      { sub: "animated-explainer", title: "Explainer with Animated Graphics", cover: "IDEAS<br>IN MOTION", label: "Motion graphics", color: "#faff43", description: "Add a short description of the graphics and the idea they explain.", video: "", poster: "" },
-      { sub: "lower-thirds-titles", title: "Lower-Thirds and Title Sequence Pack", cover: "TITLES<br>+ TYPE", label: "Motion graphics", color: "#b198ff", description: "Add a short description of the title pack and animation style.", video: "", poster: "" },
+      { sub: "animated-explainer", title: "Explainer with Animated Graphics", cover: "IDEAS<br>IN MOTION", label: "Motion graphics", color: "#faff43", description: "Add a short description of the graphics and the idea they explain", video: "", poster: "" },
+      { sub: "lower-thirds-titles", title: "Lower-Thirds and Title Sequence Pack", cover: "TITLES<br>+ TYPE", label: "Motion graphics", color: "#b198ff", description: "Add a short description of the title pack and animation style", video: "", poster: "" },
 
-      { sub: "flat-to-cinematic", title: "Before/After Flat-to-Cinematic Grade", cover: "FLAT TO<br>FILM", label: "Color grading", color: "#67f4e5", description: "Add a short description of the before-and-after grade.", video: "", poster: "" },
-      { sub: "skin-tone-consistency", title: "Skin-Tone Consistency Reel", cover: "SKIN TONE<br>CHECK", label: "Color grading", color: "#ffa66b", description: "Add a short description of the skin-tone matching work.", video: "", poster: "" },
-      { sub: "mood-grade", title: "Mood-Based Grade Comparison", cover: "SET THE<br>MOOD", label: "Color grading", color: "#9673ff", description: "Add a short description of the different grade styles shown.", video: "", poster: "" },
+      { sub: "flat-to-cinematic", title: "Before/After Flat-to-Cinematic Grade", cover: "FLAT TO<br>FILM", label: "Color grading", color: "#67f4e5", description: "Add a short description of the before-and-after grade", video: "", poster: "" },
+      { sub: "skin-tone-consistency", title: "Skin-Tone Consistency Reel", cover: "SKIN TONE<br>CHECK", label: "Color grading", color: "#ffa66b", description: "Add a short description of the skin-tone matching work", video: "", poster: "" },
+      { sub: "mood-grade", title: "Mood-Based Grade Comparison", cover: "SET THE<br>MOOD", label: "Color grading", color: "#9673ff", description: "Add a short description of the different grade styles shown", video: "", poster: "" },
 
-      { sub: "dialogue-cleanup", title: "Dialogue Cleanup + Music Bed", cover: "VOICE<br>+ MUSIC", label: "Sound design", color: "#67f4e5", description: "Add a short description of dialogue cleanup and music balancing.", video: "", poster: "" },
-      { sub: "sfx-short", title: "SFX-Driven Short-Form Edit", cover: "SFX<br>IMPACT", label: "Sound design", color: "#ff5198", description: "Add a short description of sound effects and their timing in the edit.", video: "", poster: "" },
-      { sub: "ambient-mix", title: "Full Ambient + Music Mix", cover: "FULL<br>MIX", label: "Sound design", color: "#b198ff", description: "Add a short description of ambience, music, and the final mix.", video: "", poster: "" },
+      { sub: "dialogue-cleanup", title: "Dialogue Cleanup + Music Bed", cover: "VOICE<br>+ MUSIC", label: "Sound design", color: "#67f4e5", description: "Add a short description of dialogue cleanup and music balancing", video: "", poster: "" },
+      { sub: "sfx-short", title: "SFX-Driven Short-Form Edit", cover: "SFX<br>IMPACT", label: "Sound design", color: "#ff5198", description: "Add a short description of sound effects and their timing in the edit", video: "", poster: "" },
+      { sub: "ambient-mix", title: "Full Ambient + Music Mix", cover: "FULL<br>MIX", label: "Sound design", color: "#b198ff", description: "Add a short description of ambience, music, and the final mix", video: "", poster: "" },
 
-      { sub: "kinetic-typography", title: "Kinetic Typography", cover: "KINETIC<br>TYPE", label: "After Effects animation", color: "#ff5198", description: "Add a short description of the kinetic typography animation.", video: "", poster: "" },
-      { sub: "two-d-animation", title: "2D Animation", cover: "2D<br>ANIMATION", label: "After Effects animation", color: "#ffa66b", description: "Add a short description of the 2D animation and its motion style.", video: "", poster: "" }
+      { sub: "kinetic-typography", title: "Kinetic Typography", cover: "KINETIC<br>TYPE", label: "After Effects animation", color: "#ff5198", description: "Add a short description of the kinetic typography animation", video: "", poster: "" },
+      { sub: "two-d-animation", title: "2D Animation", cover: "2D<br>ANIMATION", label: "After Effects animation", color: "#ffa66b", description: "Add a short description of the 2D animation and its motion style", video: "", poster: "" }
     ];
 
     const pages = [...document.querySelectorAll(".page")];
@@ -1922,7 +1933,7 @@
         if (link.hash === "#" + id) link.setAttribute("aria-current", "page");
         else link.removeAttribute("aria-current");
       });
-      document.title = `${titles[id]} | FRAME!`;
+      document.title = `${titles[id]} | FRAME`;
       navigation.classList.remove("open");
       menu.setAttribute("aria-expanded", "false");
       window.scrollTo({ top: 0, behavior: "instant" });
@@ -2023,7 +2034,7 @@
         button.type = "button";
         button.className = "project-button";
         button.setAttribute("aria-label", `Preview ${project.title}`);
-        button.dataset.comic = "PLAY!";
+        button.dataset.comic = "PLAY";
 
         const thumb = document.createElement("div");
         thumb.className = "thumb";
@@ -2215,7 +2226,7 @@
 
         if (mediaError && mediaError.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
           showreelFallback.innerHTML =
-            'This MP4 format is not supported by the browser. Re-export it as <strong>MP4 (H.264 video + AAC audio)</strong>.';
+            'This MP4 format is not supported by the browser Re-export it as <strong>MP4 (H.264 video + AAC audio)</strong>';
         } else {
           showreelFallback.innerHTML =
             'Could not load the showreel. Check that <strong>showreel.mp4</strong> is uploaded beside <strong>index.html</strong> in the repository root.';
@@ -2309,9 +2320,9 @@
       const emptyHeading = emptyPreview.querySelector("h3");
       const emptyLead = emptyPreview.querySelector(".lead");
       const emptyNote = emptyPreview.querySelector(".note");
-      emptyHeading.textContent = "YOUR FILM. THIS STAGE.";
-      emptyLead.textContent = "No video has been added to this demo project.";
-      emptyNote.innerHTML = "Add an MP4 path to this project's <code>video</code> property in the code.";
+      emptyHeading.textContent = "YOUR FILM THIS STAGE";
+      emptyLead.textContent = "No video has been added to this demo project";
+      emptyNote.innerHTML = "Add an MP4 path to this project's <code>video</code> property in the code";
 
       if (project.video) {
         projectPlayer.hidden = false;
@@ -2374,10 +2385,10 @@
       // Check the public URL so the message distinguishes a missing asset from a codec issue.
       const showGenericMediaError = () => {
         emptyHeading.textContent = "VIDEO COULD NOT PLAY";
-        emptyLead.textContent = "The page has a video path, but the browser could not play the file.";
-        emptyNote.textContent = `File tried: ${currentPath}. If the file is present, re-export it as MP4 (H.264 video + AAC audio). Browser media error: ${mediaError ? mediaError.code : "unknown"}.`;
+        emptyLead.textContent = "The page has a video path, but the browser could not play the file";
+        emptyNote.textContent = `File tried: ${currentPath} If the file is present, re-export it as MP4 (H.264 video + AAC audio) Browser media error: ${mediaError ? mediaError.code : "unknown"}`;
         document.getElementById("modal-description").textContent =
-          "For the live site, make sure the matching MP4 is uploaded to the GitHub repository at videos/long-form/ and that the commit has been pushed. For local testing, keep the file in the same relative path next to index.html.";
+          "For the live site, make sure the matching MP4 is uploaded to the GitHub repository root and that the commit has been pushed. For local testing, keep the file beside index.html";
       };
 
       showGenericMediaError();
@@ -2388,16 +2399,16 @@
             if (!activeProject) return;
             if (response.status === 404) {
               emptyHeading.textContent = "VIDEO FILE NOT UPLOADED";
-              emptyLead.textContent = "The HTML path is set, but this MP4 is missing from the published GitHub site.";
-              emptyNote.textContent = `Expected repository file: ${activeProject.video}. Upload the video to this exact path, then commit and push it to GitHub.`;
+              emptyLead.textContent = "The HTML path is set, but this MP4 is missing from the published GitHub site";
+              emptyNote.textContent = `Expected repository file: ${activeProject.video} Upload the video to this exact path, then commit and push it to GitHub`;
               document.getElementById("modal-description").textContent =
-                "The video is not published at this URL yet. Upload the MP4 to the frame-motion-portfolio repository under videos/long-form/ and push the commit. Files stored only on your computer are not available to the live website.";
+                "The video is not published at this URL yet Upload the MP4 to the frame-motion-portfolio repository root and push the commit Files stored only on your computer are not available to the live website";
             } else if (response.ok) {
               emptyHeading.textContent = "VIDEO FORMAT NOT SUPPORTED";
-              emptyLead.textContent = "The file URL exists, but the browser could not decode the video.";
-              emptyNote.textContent = `File found: ${currentPath}. Re-export this video as MP4 with H.264 video and AAC audio. Browser media error: ${mediaError ? mediaError.code : "unknown"}.`;
+              emptyLead.textContent = "The file URL exists, but the browser could not decode the video";
+              emptyNote.textContent = `File found: ${currentPath} Re-export this video as MP4 with H.264 video and AAC audio Browser media error: ${mediaError ? mediaError.code : "unknown"}`;
               document.getElementById("modal-description").textContent =
-                "The file is published at the expected location. Check the video codec and audio codec, then re-upload the converted file if needed.";
+                "The file is published at the expected location Check the video codec and audio codec, then re-upload the converted file if needed";
             }
           })
           .catch(() => {});
@@ -2478,7 +2489,7 @@
       event.preventDefault();
       const status = document.getElementById("form-status");
       if (CONTACT_EMAIL === "hello@example.com") {
-        status.textContent = "Setup needed: replace CONTACT_EMAIL in the code with your real email address.";
+        status.textContent = "Setup needed: replace CONTACT_EMAIL in the code with your real email address";
         return;
       }
       const data = new FormData(event.currentTarget);
@@ -2495,7 +2506,7 @@
 
       openGmailCompose(CONTACT_EMAIL, subject, body);
       status.textContent =
-        "Opening Gmail to prepare your draft. If the Gmail app is unavailable, Gmail will open in your browser. Review the draft and press Send when you are ready.";
+        "Opening Gmail to prepare your draft If the Gmail app is unavailable, Gmail will open in your browser Review the draft and press Send when you are ready";
     });
 
     /* ---------- Pointer effects ---------- */
